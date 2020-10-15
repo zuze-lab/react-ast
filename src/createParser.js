@@ -6,43 +6,34 @@ const createVarParser = (pattern, { context, components }, contextKey) => (
 ) =>
   traverse(
     descriptor,
-    (v) => typeof v === 'string' && pattern.test(v),
+    (v) => typeof v === 'string',
     (v, nextPath) => {
-      let fullReplacement;
-      // if the pattern matches the string completely, then just replace
-      const matched = v.match(pattern);
-
-      // if the template is equal to a single interpolation point - e.g. '{full.name}'
-      // then set a flag to return the full entity retrieved from the getter (full entity could be an array, object, or something else)
-      const replaceFull = matched.length === 1 && matched[0] === v;
-
-      // interpolation function
+      let full;
       const replaced = v.replace(pattern, (e, t) => {
         const from = t[0] === contextKey ? context : components;
-        fullReplacement = get(from, from === context ? t.substr(1) : t, null);
-        if (fullReplacement === null)
+        const replacement = get(from, from === context ? t.substr(1) : t);
+        if (replacement === undefined)
           throw new Error(
             `Could not perform interpolation of ${e} at path ${stringifyPath([
               ...path,
               ...nextPath
             ])}`
           );
-        return replaceFull ? '' : fullReplacement;
+
+        full = e === v ? replacement : null;
+        return e === v ? '' : replacement;
       });
 
-      return replaceFull ? fullReplacement : replaced;
+      return full || replaced;
     }
   );
 
-const createRefParser = (dynamicCreator, cmpKey, merge, ast) => (
-  descriptor,
-  path
-) =>
+const createRefParser = (creator, cmpKey, merge) => (descriptor, path) =>
   traverse(
     descriptor,
     (v) => v && v[cmpKey],
     (r, nextPath) =>
-      dynamicCreator(
+      creator(
         merge(
           ...Object.entries(r).reduce(
             (acc, [k, v]) =>
@@ -56,7 +47,7 @@ const createRefParser = (dynamicCreator, cmpKey, merge, ast) => (
 
 // parsers traverse descriptor objects and modify them
 export const createParser = (
-  dynamicCreator,
+  creator,
   cmpKey,
   contextKey,
   context,
@@ -65,6 +56,6 @@ export const createParser = (
 ) => {
   // would be nicer to do this in a single traversal
   const varParser = createVarParser(pattern, context, contextKey);
-  const refParser = createRefParser(dynamicCreator, cmpKey, merge, context);
+  const refParser = createRefParser(creator, cmpKey, merge);
   return (descriptor, path) => refParser(varParser(descriptor, path), path);
 };
