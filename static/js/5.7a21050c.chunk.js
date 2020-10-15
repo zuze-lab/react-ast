@@ -1,0 +1,2 @@
+(this["webpackJsonp@zuze/react-ast-example"]=this["webpackJsonp@zuze/react-ast-example"]||[]).push([[5],{206:function(e,t,n){"use strict";n.r(t),n.d(t,"TestSpanComponent",(function(){return p}));var a=n(0),s=n.n(a),p=e=>s.a.createElement(s.a.Fragment,null,"This is my test component!",s.a.createElement("span",e))}}]);
+//# sourceMappingURL=5.7a21050c.chunk.js.map
