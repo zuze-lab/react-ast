@@ -1,0 +1,165 @@
+{
+  "CODE": {
+    "component": "Code",
+    "props": {
+      "style": {
+        "padding": 20
+      }
+    }
+  },
+  "FRAGMENT": {
+    "component": "Fragment",
+    "module": "react"
+  },
+  "TITLE_CMP": {
+    "component": "Typography",
+    "module": "mui",
+    "props": {
+      "variant": "h3"
+    },
+    "styles": {
+      "root": {
+        "marginBottom": 20
+      }
+    }
+  },
+  "MAIN": {
+    "component": "div",
+    "styles": {
+      "root": {
+        "paddingBottom": 50
+      }
+    },
+    "children": [
+      {
+        "$cmp": "{{INSTALLATION}}"
+      },
+      {
+        "$cmp": "{{USAGE}}"
+      }
+    ]
+  },
+  "USAGE": {
+    "component": "div",
+    "children": [
+      {
+        "$cmp": "{{TITLE_CMP}}",
+        "children": [
+          "Usage"
+        ]
+      },
+      {
+        "$cmp": {
+          "component": "LiveEditor",
+          "props": "{{$snippets.usageFull}}"
+        }
+      }
+    ]
+  },
+  "INSTALLATION": {
+    "component": "div",
+    "children": [
+      {
+        "$cmp": "{{TITLE_CMP}}",
+        "children": [
+          "Installation"
+        ]
+      },
+      {
+        "$cmp": "{{SUBTITLE}}"
+      },
+      {
+        "$cmp": "{{INSTALL}}"
+      },
+      {
+        "$cmp": "{{INSTALL_NOTE}}"
+      }
+    ]
+  },
+  "SUBTITLE": {
+    "component": "Typography",
+    "module": "mui",
+    "props": {
+      "variant": "body1"
+    },
+    "styles": {
+      "root": {
+        "marginBottom": 20,
+        "display": "block"
+      }
+    },
+    "children": [
+      "@zuze/react-ast is available as an ",
+      {
+        "$cmp": {
+          "component": "Link",
+          "module": "mui",
+          "props": {
+            "color": "primary",
+            "href": "https://npmjs.org"
+          },
+          "children": [
+            "NPM package"
+          ]
+        }
+      }
+    ]
+  },
+  "INSTALL": {
+    "component": "Tabs",
+    "styles": {
+      "root": {
+        "marginBottom": 20
+      },
+      "panel": {
+        "padding": 0,
+        "paddingTop": 20
+      }
+    },
+    "props": {
+      "tabs": [
+        "yarn",
+        "npm"
+      ]
+    },
+    "children": [
+      {
+        "$cmp": "{{CODE}}",
+        "props": {
+          "language": "bash"
+        },
+        "children": "yarn add @zuze/react-ast"
+      },
+      {
+        "$cmp": "{{CODE}}",
+        "props": {
+          "language": "bash"
+        },
+        "children": "npm install @zuze/react-ast"
+      }
+    ]
+  },
+  "INSTALL_NOTE": {
+    "component": "Typography",
+    "module": "mui",
+    "props": {
+      "variant": "body1"
+    },
+    "styles": {
+      "root": {
+        "marginBottom": 20,
+        "display": "block"
+      }
+    },
+    "children": [
+      {
+        "$cmp": {
+          "component": "Interweave",
+          "props": {
+            "content": "@zuze/react-ast supports <a href=\"https://www.npmjs.com/package/react\">react</a> >= 16.6.0 (the one with lazy and memo) is required"
+          }
+        }
+      }
+    ]
+  }
+}

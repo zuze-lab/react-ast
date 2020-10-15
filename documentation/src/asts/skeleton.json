@@ -1,0 +1,532 @@
+{
+  "__ROUTE_HOME": "/",
+  "__ROUTE_GETTING_STARTED": "/getting-started",
+  "__ROUTE_SIMPLE_TREE": "/rendering-a-simple-tree",
+  "__ROUTE_RESOLVERS": "/resolvers",
+  "__ROUTE_RENDERERS": "/renderers",
+  "__GITHUB_LINK": "https://github.com/zuze-lab/react-ast",
+  "__ACTIVE_LINK_COLOR": "rgba(0,0,0,0.2)",
+  "SUSPENSE": {
+    "component": "Suspense",
+    "module": "react",
+    "props": {
+      "fallback": {
+        "$cmp": {
+          "module": "react",
+          "component": "Fragment"
+        }
+      }
+    }
+  },
+  "MAIN": {
+    "component": "Fragment",
+    "module": "react",
+    "children": [
+      {
+        "$cmp": "{{SUSPENSE}}",
+        "children": [
+          {
+            "$cmp": {
+              "component": "BrowserRouter",
+              "module": "router",
+              "props": {
+                "basename": "{{$BASE_PATH}}"
+              },
+              "children": [
+                {
+                  "$cmp": "{{PAGE}}"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "BODY_ROUTES": {
+    "component": "Switch",
+    "module": "router",
+    "children": [
+      {
+        "$cmp": {
+          "component": "Route",
+          "module": "router",
+          "props": {
+            "exact": true,
+            "path": "{{__ROUTE_HOME}}"
+          },
+          "children": [
+            {
+              "$cmp": "{{ROUTE_HOME}}",
+              "props": {
+                "key": "fred"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "$cmp": {
+          "component": "Route",
+          "module": "router",
+          "props": {
+            "exact": true,
+            "path": "{{__ROUTE_GETTING_STARTED}}"
+          },
+          "children": [
+            {
+              "$cmp": "{{ROUTE_GETTING_STARTED}}"
+            }
+          ]
+        }
+      },
+      {
+        "$cmp": {
+          "component": "Route",
+          "module": "router",
+          "props": {
+            "exact": true,
+            "path": "{{__ROUTE_SIMPLE_TREE}}"
+          },
+          "children": [
+            {
+              "$cmp": "{{ROUTE_SIMPLE_TREE}}"
+            }
+          ]
+        }
+      },
+      {
+        "$cmp": {
+          "component": "Route",
+          "module": "router",
+          "props": {
+            "exact": true,
+            "path": "{{__ROUTE_RESOLVERS}}"
+          },
+          "children": [
+            {
+              "$cmp": "{{ROUTE_RESOLVERS}}"
+            }
+          ]
+        }
+      },
+      {
+        "$cmp": {
+          "component": "Route",
+          "module": "router",
+          "props": {
+            "exact": true,
+            "path": "{{__ROUTE_RENDERERS}}"
+          },
+          "children": [
+            {
+              "$cmp": "{{ROUTE_RENDERERS}}"
+            }
+          ]
+        }
+      },
+      {
+        "$cmp": {
+          "module": "router",
+          "component": "Redirect",
+          "props": {
+            "to": "{{__ROUTE_HOME}}"
+          }
+        }
+      }
+    ]
+  },
+  "ROUTE_HOME": {
+    "module": "home",
+    "component": "Home"
+  },
+  "ROUTE_GETTING_STARTED": {
+    "module": "getting-started",
+    "component": "default"
+  },
+  "ROUTE_SIMPLE_TREE": {
+    "component": "span",
+    "children": [
+      "Simple Tree"
+    ]
+  },
+  "ROUTE_RESOLVERS": {
+    "component": "span",
+    "children": [
+      "Resolvers"
+    ]
+  },
+  "ROUTE_RENDERERS": {
+    "component": "span",
+    "children": [
+      "Renderers"
+    ]
+  },
+  "PAGE": {
+    "component": "div",
+    "styles": {
+      "root": {
+        "display": "flex",
+        "minHeight": "100vh"
+      }
+    },
+    "children": [
+      {
+        "$cmp": {
+          "component": "CssBaseline",
+          "module": "mui"
+        }
+      },
+      {
+        "$cmp": "{{APPBAR}}"
+      },
+      {
+        "$cmp": "{{DRAWER}}"
+      },
+      {
+        "$cmp": "{{BODY}}"
+      }
+    ]
+  },
+  "BODY": {
+    "component": "div",
+    "children": [
+      {
+        "$cmp": {
+          "module": "mui",
+          "component": "Toolbar"
+        }
+      },
+      {
+        "$cmp": "{{SUSPENSE}}",
+        "children": [
+          {
+            "$cmp": {
+              "component": "div",
+              "children": [
+                {
+                  "$cmp": "{{BODY_ROUTES}}"
+                }
+              ],
+              "props": {
+                "style": {
+                  "height": "100vh",
+                  "padding": 20
+                }
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "styles": {
+      "root": {
+        "flex": 1
+      }
+    }
+  },
+  "APPBAR": {
+    "component": "AppBar",
+    "module": "mui",
+    "props": {
+      "position": "fixed"
+    },
+    "styles": {
+      "root": {
+        "zIndex": 1000
+      }
+    },
+    "children": [
+      {
+        "$cmp": "{{HEADER_TOOLBAR}}"
+      }
+    ]
+  },
+  "HEADER_TOOLBAR": {
+    "component": "Toolbar",
+    "module": "mui",
+    "styles": {
+      "root": {
+        "display": "flex",
+        "alignItems": "stretch",
+        "justifyContent": "space-between"
+      }
+    },
+    "children": [
+      {
+        "$cmp": "{{TITLE}}"
+      },
+      {
+        "$cmp": "{{HEADER_LINKS}}"
+      }
+    ]
+  },
+  "TITLE": {
+    "component": "div",
+    "styles": {
+      "root": {
+        "display": "flex"
+      }
+    },
+    "children": [
+      {
+        "$cmp": {
+          "component": "Link",
+          "module": "router",
+          "props": {
+            "to": "{{__ROUTE_HOME}}"
+          },
+          "styles": {
+            "root": {
+              "color": "inherit",
+              "textDecoration": "none",
+              "display": "flex",
+              "alignItems": "center"
+            }
+          }
+        },
+        "children": [
+          {
+            "$cmp": {
+              "component": "div",
+              "styles": {
+                "root": {
+                  "display": "flex"
+                }
+              },
+              "children": [
+                {
+                  "$cmp": {
+                    "component": "span",
+                    "styles": {
+                      "root": {
+                        "display": "block",
+                        "paddingRight": "1rem"
+                      }
+                    },
+                    "children": [
+                      "@zuze/react-ast"
+                    ]
+                  }
+                },
+                {
+                  "$cmp": {
+                    "module": "common",
+                    "component": "Logo",
+                    "styles": {
+                      "root": {
+                        "color": "white"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "HEADER_LINKS": {
+    "component": "div",
+    "styles": {
+      "root": {
+        "alignSelf": "center"
+      }
+    },
+    "children": [
+      {
+        "$cmp": {
+          "component": "IconButton",
+          "module": "mui",
+          "props": {
+            "href": "{{__GITHUB_LINK}}",
+            "target": "_blank"
+          },
+          "children": [
+            {
+              "$cmp": {
+                "module": "icons",
+                "component": "GitHub",
+                "styles": {
+                  "root": {
+                    "color": "white"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "DRAWER": {
+    "component": "Drawer",
+    "module": "mui",
+    "props": {
+      "variant": "permanent"
+    },
+    "children": [
+      {
+        "$cmp": {
+          "module": "mui",
+          "component": "Toolbar"
+        }
+      },
+      {
+        "$cmp": "{{NAV}}"
+      }
+    ],
+    "styles": {
+      "root": {
+        "zIndex": 1,
+        "width": "240px"
+      },
+      "paper": {
+        "width": "240px"
+      }
+    }
+  },
+  "NAVLISTITEM": {
+    "component": "ListItem",
+    "module": "mui",
+    "props": {
+      "button": true
+    },
+    "styles": {
+      "root": {
+        "paddingLeft": "2rem"
+      }
+    }
+  },
+  "NAVLINK": {
+    "component": "NavLink",
+    "module": "router",
+    "props": {
+      "activeStyle": {
+        "background": "{{__ACTIVE_LINK_COLOR}}"
+      }
+    },
+    "styles": {
+      "root": {
+        "display": "block",
+        "textDecoration": "none",
+        "color": "inherit"
+      }
+    }
+  },
+  "NAVLISTHEADER": {
+    "component": "ListSubheader",
+    "module": "mui"
+  },
+  "NAV": {
+    "component": "List",
+    "module": "mui",
+    "children": [
+      {
+        "$cmp": "{{NAVLISTHEADER}}",
+        "children": [
+          "@zuze/react-ast"
+        ]
+      },
+      {
+        "$cmp": "{{NAVLINK}}",
+        "props": {
+          "to": "{{__ROUTE_GETTING_STARTED}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{NAVLISTITEM}}",
+            "children": [
+              "Getting Started"
+            ]
+          }
+        ]
+      },
+      {
+        "$cmp": "{{NAVLINK}}",
+        "props": {
+          "to": "{{__ROUTE_SIMPLE_TREE}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{NAVLISTITEM}}",
+            "children": [
+              "Rendering a Simple Tree"
+            ]
+          }
+        ]
+      },
+      {
+        "$cmp": "{{NAVLINK}}",
+        "props": {
+          "to": "{{__ROUTE_RESOLVERS}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{NAVLISTITEM}}",
+            "children": [
+              "Resolvers"
+            ]
+          }
+        ]
+      },
+      {
+        "$cmp": "{{NAVLINK}}",
+        "props": {
+          "to": "{{__ROUTE_RENDERERS}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{NAVLISTITEM}}",
+            "children": [
+              "Renderers"
+            ]
+          }
+        ]
+      },
+      {
+        "$cmp": "{{NAVLISTHEADER}}",
+        "children": [
+          "Guides"
+        ]
+      },
+      {
+        "$cmp": "{{NAVLISTITEM}}",
+        "children": [
+          "Code Splitting"
+        ]
+      },
+      {
+        "$cmp": "{{NAVLISTITEM}}",
+        "children": [
+          "Material UI Styles"
+        ]
+      },
+      {
+        "$cmp": "{{NAVLISTITEM}}",
+        "children": [
+          "Conditional"
+        ]
+      },
+      {
+        "$cmp": "{{NAVLISTHEADER}}",
+        "children": [
+          "API Reference"
+        ]
+      },
+      {
+        "$cmp": "{{NAVLISTITEM}}",
+        "children": [
+          "<ReactAST/>"
+        ]
+      },
+      {
+        "$cmp": "{{NAVLISTITEM}}",
+        "children": [
+          "Utilities"
+        ]
+      }
+    ]
+  }
+}
