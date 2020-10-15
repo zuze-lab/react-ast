@@ -16,7 +16,6 @@ const createVarParser = (pattern, { context, components }, contextKey) => (
       // then set a flag to return the full entity retrieved from the getter (full entity could be an array, object, or something else)
       const replaceFull = matched.length === 1 && matched[0] === v;
 
-      console.log(context, components);
       // interpolation function
       const replaced = v.replace(pattern, (e, t) => {
         const from = t[0] === contextKey ? context : components;
