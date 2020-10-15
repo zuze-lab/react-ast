@@ -9,7 +9,7 @@ const App = () => {
       <ReactAST
         resolver={resolver}
         descriptor={skeleton.MAIN}
-        ast={skeleton}
+        components={skeleton}
         context={context}
       >
         {astRenderer}

@@ -8,7 +8,7 @@ export default () => (
   <ReactAST
     resolver={resolver}
     descriptor={ast.MAIN}
-    ast={ast}
+    components={ast}
     context={{ snippets }}
   >
     {astRenderer}

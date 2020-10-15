@@ -6,20 +6,26 @@ Check out the [official documentation](https://zuze-lab.github.io/react-ast/)
 
 ## What's this?
 
-A thought experiment (for now) to render COMPLETE react applications from a JSON Abstract Syntax Tree (AST). There's [lots](https://www.pluralsight.com/guides/how-to-render-a-component-dynamically-based-on-a-json-config) [of](https://www.pluralsight.com/guides/load-and-render-json-data-into-react-components) [articles](https://www.storyblok.com/tp/react-dynamic-component-from-json) about how to turn JSON into dynamic react components, but those articles lack the truly dynamic nature I wanted to achieve. [react-from-json](https://github.com/hydrateio/react-from-json) could definitely be considered prior art.
+A pretty straightforward recursive renderer with a tiny amount of syntactic sugar (using `$cmp` and interpolation!)
 
 ## Why?
 
-I'm honestly not sure right now, but I think the sky's the limit here.
+¯\_(ツ)_/¯
 
 
 ## Install
 
 ```bash
+# npm
+npm install @zuze/react-ast
+
+# yarn
 yarn add @zuze/react-ast
 ```
 
 ## Usage
+
+### Simple Example
 
 ```jsx
 import React from 'react';
@@ -28,11 +34,9 @@ import ReactAST from '@zuze/react-ast'
 
 const App = () => (
   <ReactAST 
-    ast={{
-      MAIN: {
-        component: 'h1',
-        children: ['Hello World']
-      }
+    descriptor={{
+      component: 'h1',
+      children: ['Hello World']
     }}
   />
 );
@@ -40,32 +44,83 @@ const App = () => (
 ReactDOM.render(<App/>, document.getElementById('root'));
 ```
 
-### API
+### Nesting Components
 
-This module exports a single component:
-`<ReactAST/>`
+Creating components dynamically is done with the special key `$cmp` in your JSON (configurable via the `cmpKey` prop).
 
-### Props
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ReactAST from '@zuze/react-ast'
+
+const App = () => (
+  <ReactAST 
+    descriptor={{
+      component: 'h1',
+      children: [
+        'Please click on this ',
+        {
+          $cmp: {
+            component: 'a'
+            props: {
+              href: 'https://www.google.com'
+            },
+            children:['link to Google']
+          }
+        }
+      ]
+    }}
+  />
+);
+
+ReactDOM.render(<App/>, document.getElementById('root'));
+
+// Output <h1>Please click on this <a href="https://www.google.com">link to google</a></h1>
+```
+
+
+## Props
 
 - `descriptor: ComponentDescriptor` - A `ComponentDescriptor`
 - `resolver: ComponentResolver` - Given a `ComponentDescriptor`, return a Component
-- `ast?:  AST` - An optional map of `ComponentDescriptors` that are useful to reference things from
+- `components?:  ComponentMap` - An optional map of `ComponentDescriptors` that are useful to reference things from see [interpolation and context](#interpolation-and-context)
 - `Component?: ReactElement` - Render a descriptor using a Component
 - `render?: Renderer` - Render a descriptor using a function
 - `children?: Renderer` - Alternate way to render a descriptor using a function
   
-**Advanced Props:**
+### Advanced Props
 - `cmpKey = '$cmp'` - Object key the will yield dynamic components.
 - `merge?: (...ComponentDescriptors) => ComponentDescriptor` - merge function used to combine `ComponentDescriptors` when using `$cmp`'s
 - `interpolate: RegExp = /\{\{(.+?)\}\}/g` - Pattern which will be used to interpolate variables into the AST
 - `context: {[key: string]: any} = {}` - Context that can be used for interpolation patterns
 - `contextKey: string = $` - See [context and interpolation](#context-and-interpolation)
 
+## Nesting Components
+
+
+
+
+## Interpolation and Context
+
+Interpolation and context is central to `@zuze/react-ast`. Simply, it works like this:
+
+```js
+const myRootComponentDescriptor = {
+  component:'div',
+  children:['Hi {{context.user}}!']
+}
+
+const App = () => <ReactAST descriptor={myRootComponentDescriptor} context={{user:'joe'}}/>
+
+// outputs <div>Hi joe!</div>
+```
+
+
 ## Types
 
-### AST
+### ComponentMap
 
-An AST is a key-value map of `ComponentDescriptor`s. The string `keys` are referred to as `ComponentIdentifier`s
+A ComponentMap is a key-value map of `ComponentDescriptor`s. The string `keys` are referred to as `ComponentIdentifier`s
 
 ```js
 {
@@ -78,7 +133,7 @@ An AST is a key-value map of `ComponentDescriptor`s. The string `keys` are refer
     component:'div',
     children:[ { $cmp: '{{OTHER_COMPONENT}}}' } ]
   }}
-  ast={{
+  components={{
     OTHER_COMPONENT: {
       component: 'span',
       children: [ 'Hello World!' ]
@@ -105,13 +160,11 @@ Only `props` and `children` are treated as special keys in a `ComponentDescripto
 // example of a host component (no module)
 <ReactAST
   descriptor={{
-    MAIN: {
-      component: 'span',
-      props: { 
-        title: 'My Span Title' 
-      },
-      children: [ 'Hello world!' ]
-    }
+    component: 'span',
+    props: { 
+      title: 'My Span Title' 
+    },
+    children: [ 'Hello world!' ]
   }}
 />
 
@@ -168,7 +221,7 @@ A DynamicComponent is simply a resolved `ComponentDescriptor` to a React Compone
       }
     ]
   }}
-  ast={{
+  components={{
     CHILD_A: {
       component: 'span',
       props: {
@@ -187,25 +240,28 @@ This way component descriptors are merged together this way is controlled using 
 
 ### ComponentResolver
 
-A `ComponentResolver` is passed the `ComponentDescriptor` and returns a React component.
+So far, we've just been rendering HTML, pretty useless stuff. Let's supercharge our capabilities with a `ComponentResolver`
+
+`ComponentResolver: (descriptor: ComponentDescriptor) => ReactElement`
+
+Very simple, a `ComponentResolver` is passed the `ComponentDescriptor` and returns a React component.
 
 
 ```js
-(descriptor) => ReactElement | Promise<ReactElement>
+(descriptor) => ReactElement;
 
 // example using a module property on the component descriptor
 import * as mui from `@material-ui/core`;
-const resolver = ({module,component}) => {
-  if(module !== 'mui') 
-    throw new Error('Can only use components exported by material-ui');
-  return mui[component]
+
+const resolver = ({component}) => {
+  if(component === 'MuiButton') return mui.Button;
+  throw new Error(`Component ${component} could not be found!`);
 }
 
 <ReactAST
   resolver={resolver}
   descriptor={{
-    component: 'Button',
-    module: 'mui',
+    component: 'MuiButton',
     props: {
       variant: 'contained'
     },
@@ -215,11 +271,39 @@ const resolver = ({module,component}) => {
 
 ```
 
-#### AST and Code Splitting
+A highly useful pattern is to specify a `module` property on your component descriptor:
 
-The concept of `module`s is (arguably) what sets `@zuze/react-ast` apart from [`react-from-json`](https://github.com/hydrateio/react-from-json). Code-splitting by component using `React.lazy`  could result in a large number of bundles (and requests). A `module` in `@zuze/react-ast` is a group of commonly-used together components. Once you've loaded one component from that module, the rest will be loaded synchronously. We use `React.lazy`. You can structure your modules however you want to keep your bundle size small and it's also important to note that the same component could be part of multiple modules.
+```js
+// example using a module property on the component descriptor
+import * as mui from `@material-ui/core`;
 
-[dynamic imports](https://webpack.js.org/guides/code-splitting/#dynamic-imports) are a thing. With the proper set up below, it's quite easy to use `ReactAST` alongside code-splitting.
+const resolver = ({module,component}) => {
+  if(module !== 'mui') throw new Error(`Component ${component} could not be found!`);
+  return mui[component];
+}
+
+<ReactAST
+  resolver={resolver}
+  descriptor={{
+    component: 'Button',
+    module:'mui',
+    props: {
+      variant: 'contained'
+    },
+    children: [ 'Click Me!' ]
+  }}
+/>
+```
+
+#### Code Splitting with Module Resolvers
+
+[React.lazy]() is a component - so it becomes trivial to code split with the proper resolver:
+
+```js
+code example
+```
+
+To set up your [create-react-app]() for code splitting:
 
 1. Put a `jsconfig.json` in your base `create-react-app` directory like this:
 ```json
@@ -273,16 +357,13 @@ It could be used with `ReactAST` like this:
 // This is my test component! <span title="My Span Title">Hello World</span>
 ```
 
-
-`$ref` can either be a `string` which references a component identifier (i.e. top level key) in the AST object or it can be an inline `ComponentDescriptor`
-
 ### Renderer
 
 ```js
 ({ render: (props = {}) => any, descriptor: ComponentDescriptor, key: string }) => any
 ```
 
-A `Renderer` - given as either the `render` or `children` prop - is used when extra processing that can't be encoded in the AST may need to be happen. For those familiar with [material-ui](https://material-ui.com/), an example might be a `theme`:
+A `Renderer` - given as either a `Component` or the `render` or `children` prop - is used when extra processing that can't be encoded in the AST may need to be happen. For those familiar with [material-ui](https://material-ui.com/), an example might be a `theme`:
 
 ```js
 import * as mui from `@material-ui/core`;

@@ -7,7 +7,7 @@ const Home = () => (
   <ReactAST
     resolver={resolver}
     descriptor={home.MAIN}
-    ast={home}
+    components={home}
     context={context}
   >
     {astRenderer}
