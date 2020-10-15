@@ -1,12 +1,12 @@
 import { traverse, get, stringifyPath } from './utils';
 
-const createVarParser = (pattern, context, ast, contextKey) => (
+const createVarParser = (pattern, { context, components }, contextKey) => (
   descriptor,
   path
 ) =>
   traverse(
     descriptor,
-    (v) => pattern.test(v),
+    (v) => typeof v === 'string' && pattern.test(v),
     (v, nextPath) => {
       let fullReplacement;
       // if the pattern matches the string completely, then just replace
@@ -16,15 +16,16 @@ const createVarParser = (pattern, context, ast, contextKey) => (
       // then set a flag to return the full entity retrieved from the getter (full entity could be an array, object, or something else)
       const replaceFull = matched.length === 1 && matched[0] === v;
 
+      console.log(context, components);
       // interpolation function
       const replaced = v.replace(pattern, (e, t) => {
-        const from = t[0] === contextKey ? context : ast;
+        const from = t[0] === contextKey ? context : components;
         fullReplacement = get(from, from === context ? t.substr(1) : t, null);
         if (fullReplacement === null)
           throw new Error(
             `Could not perform interpolation of ${e} at path ${stringifyPath([
               ...path,
-              nextPath
+              ...nextPath
             ])}`
           );
         return replaceFull ? '' : fullReplacement;
@@ -58,14 +59,13 @@ const createRefParser = (dynamicCreator, cmpKey, merge, ast) => (
 export const createParser = (
   dynamicCreator,
   cmpKey,
-  context,
   contextKey,
-  ast,
+  context,
   pattern,
   merge
 ) => {
   // would be nicer to do this in a single traversal
-  const varParser = createVarParser(pattern, context, ast, contextKey);
-  const refParser = createRefParser(dynamicCreator, cmpKey, merge, ast);
+  const varParser = createVarParser(pattern, context, contextKey);
+  const refParser = createRefParser(dynamicCreator, cmpKey, merge, context);
   return (descriptor, path) => refParser(varParser(descriptor, path), path);
 };

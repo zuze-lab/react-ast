@@ -4,7 +4,7 @@ import { mergeDescriptors, resolveComponent, stringifyPath } from './utils';
 
 export const createDynamicRenderer = ({
   descriptor,
-  ast = {},
+  components = {},
   render,
   children = ({ render }) => render(),
   Component,
@@ -22,9 +22,8 @@ export const createDynamicRenderer = ({
   const parse = createParser(
     (...args) => fn(...args),
     cmpKey,
-    context,
     contextKey,
-    ast,
+    { context, components },
     interpolate,
     merge
   );
