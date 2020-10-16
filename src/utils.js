@@ -28,20 +28,19 @@ export const traverse = (what, test, then, path = []) =>
     ? what
     : Array.isArray(what)
     ? what.map((w, i) => traverse(w, test, then, [...path, i]))
-    : Object.entries(what).reduce(
-        (acc, [k, v]) => ({
-          ...acc,
-          [traverse(k, test, then, path)]: traverse(v, test, then, [...path, k])
-        }),
-        {}
-      );
+    : Object.entries(what).reduce((acc, [k, v]) => {
+        const key = traverse(k, test, then, path);
+        return Object.assign(acc, {
+          [key]: traverse(v, test, then, [...path, k])
+        });
+      }, {});
 
-// Component Cache - TO DO: this is global and ugly - we should fix it
-const cache = {};
-
-export const resolveComponent = (resolver, descriptor, cacheKey, fallback) => {
-  const k = descriptor[cacheKey] || fallback;
-  return cache[k] || (cache[k] = resolver(descriptor));
+export const createComponentResolver = (resolver, cacheFn) => {
+  const cache = {};
+  return (descriptor) => {
+    const k = cacheFn(descriptor);
+    return cache[k] || (cache[k] = resolver(descriptor));
+  };
 };
 
 export const get = (obj, path, def) => {

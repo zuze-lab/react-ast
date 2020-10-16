@@ -1,6 +1,6 @@
 import { createElement } from 'react';
 import { createParser } from './createParser';
-import { mergeDescriptors, resolveComponent, stringifyPath } from './utils';
+import { mergeDescriptors, stringifyPath } from './utils';
 
 export const createDynamicRenderer = ({
   descriptor,
@@ -9,7 +9,6 @@ export const createDynamicRenderer = ({
   children = ({ render }) => render(),
   Component,
   resolver,
-  cacheKey = 'component',
   cmpKey = '$cmp',
   merge = mergeDescriptors,
   interpolate = /\{\{(.+?)\}\}/g,
@@ -52,10 +51,7 @@ export const createDynamicRenderer = ({
           path
         );
 
-        return createElement(
-          resolveComponent(resolver, final, cacheKey, key),
-          final.props
-        );
+        return createElement(resolver(final), final.props);
       }
     };
 
