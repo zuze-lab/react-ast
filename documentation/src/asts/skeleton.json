@@ -1,7 +1,7 @@
 {
   "__ROUTE_HOME": "/",
   "__ROUTE_GETTING_STARTED": "/getting-started",
-  "__ROUTE_SIMPLE_TREE": "/rendering-a-simple-tree",
+  "__ROUTE_INTERPOLATION": "/interpolation",
   "__ROUTE_RESOLVERS": "/resolvers",
   "__ROUTE_RENDERERS": "/renderers",
   "__GITHUB_LINK": "https://github.com/zuze-lab/react-ast",
@@ -86,11 +86,11 @@
           "module": "router",
           "props": {
             "exact": true,
-            "path": "{{__ROUTE_SIMPLE_TREE}}"
+            "path": "{{__ROUTE_INTERPOLATION}}"
           },
           "children": [
             {
-              "$cmp": "{{ROUTE_SIMPLE_TREE}}"
+              "$cmp": "{{ROUTE_INTERPOLATION}}"
             }
           ]
         }
@@ -144,10 +144,10 @@
     "module": "getting-started",
     "component": "default"
   },
-  "ROUTE_SIMPLE_TREE": {
+  "ROUTE_INTERPOLATION": {
     "component": "span",
     "children": [
-      "Simple Tree"
+      "INTERPOLATION"
     ]
   },
   "ROUTE_RESOLVERS": {
@@ -446,13 +446,13 @@
       {
         "$cmp": "{{NAVLINK}}",
         "props": {
-          "to": "{{__ROUTE_SIMPLE_TREE}}"
+          "to": "{{__ROUTE_INTERPOLATION}}"
         },
         "children": [
           {
             "$cmp": "{{NAVLISTITEM}}",
             "children": [
-              "Rendering a Simple Tree"
+              "Interpolation"
             ]
           }
         ]
