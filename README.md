@@ -224,7 +224,7 @@ const App = () => (
   />
 );
 
-// outputs <h1 title="Im a heading"><div>Hi joe!</div></h1>
+// outputs <div><h1 title="Im a heading">Hi joe!</h1></div>
 ```
 
 ### Merging
