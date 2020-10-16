@@ -10,14 +10,16 @@ export const Live = ({ imports, code, live, allowLive = true }) => {
   return (
     <>
       <div style={{ fontSize: 16, position: 'relative' }}>
-        <Button
-          color='primary'
-          variant='contained'
-          style={{ position: 'absolute', top: 10, right: 10 }}
-          onClick={() => setShowLive(!showLive)}
-        >
-          {!showLive ? 'Live Edit' : 'Hide Editor'}
-        </Button>
+        {allowLive && (
+          <Button
+            color='primary'
+            variant='contained'
+            style={{ position: 'absolute', top: 10, right: 10 }}
+            onClick={() => setShowLive(!showLive)}
+          >
+            {!showLive ? 'Live Edit' : 'Hide Editor'}
+          </Button>
+        )}
         <LiveProvider
           theme={defaultProps.theme}
           code={code + (showLive ? live : '')}

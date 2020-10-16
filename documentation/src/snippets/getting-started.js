@@ -17,8 +17,8 @@ const App = () => (
 const usageFull = {
   imports: `
 import React from 'react';
-import ReactAST from '@zuze/react-ast'  
-  `,
+import ReactAST from '@zuze/react-ast'
+`,
   code: `
 const App = () => (
   <ReactAST 
@@ -29,11 +29,11 @@ const App = () => (
     }} 
     resolver={({component}) => component}
   />
-)    
-  `,
+)
+`,
   live: `
 render(<App/>)
-  `
+`
 };
 
 export { usage, usageFull };
