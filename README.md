@@ -10,8 +10,11 @@ A pretty straightforward recursive renderer with a tiny amount of syntactic suga
 
 ## Why?
 
-¯\\\_(ツ)_/¯
+Building high quality, highly reusable components is the best approach to [react](https://reactjs.org/) (or [any](https://angular.io/) [other](https://vuejs.org/) [component-based](https://flutter.dev/) [UI framework](https://svelte.dev/)).
 
+`@zuze/react-ast` was built with the goal of having non-technical users build multiple, complete applications using [low code](https://en.wikipedia.org/wiki/Low-code_development_platform) concepts. 
+
+The rest of this README is geared towards technical users and how to implement `@zuze/react-ast`. After implementing `@zuze/react-ast`, you'll need to create your own documentation (hopefully we can help with that too!) about what components are available for your non-technical users to configure and how they can be configured.
 
 ## Install
 
