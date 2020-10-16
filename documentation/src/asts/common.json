@@ -3,7 +3,7 @@
         "component": "Typography",
         "module": "mui",
         "props": {
-            "variant": "h3"
+            "variant": "h4"
         },
         "styles": {
             "root": {
@@ -19,6 +19,14 @@
         "module": "mui",
         "props": {
             "target": "_blank"
+        }
+    },
+    "SECTION": {
+        "component": "div",
+        "styles": {
+            "root": {
+                "paddingBottom": 50
+            }
         }
     }
 }

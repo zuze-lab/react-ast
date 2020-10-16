@@ -84,7 +84,7 @@
     "component": "Typography",
     "module": "mui",
     "children": [
-      "A tiny thought experiment to render complete \napplications from JSON"
+      "Low-Code Application Creation, for React"
     ],
     "styles": {
       "root": {

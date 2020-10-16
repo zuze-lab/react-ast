@@ -2,17 +2,20 @@
     "MAIN": {
         "component": "Fragment",
         "module": "react",
-        "children": [
-            {
-                "$cmp": "{{common.HEADING}}",
-                "children": [
-                    "Code Splitting"
-                ]
-            },
-            {
-                "$cmp": "{{INTRO}}"
-            }
-        ]
+        "children": {
+            "$cmp": "{{common.SECTION}}",
+            "children": [
+                {
+                    "$cmp": "{{common.HEADING}}",
+                    "children": [
+                        "Code Splitting"
+                    ]
+                },
+                {
+                    "$cmp": "{{INTRO}}"
+                }
+            ]
+        }
     },
     "INTRO": {
         "component": "Typography",
