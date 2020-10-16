@@ -8,7 +8,7 @@ export const isPlain = (w) =>
 
 export const stringifyPath = (path) => path.join('//');
 
-export const createModuleImporter = (importer) => (descriptor) =>
+export const createImporter = (importer) => (descriptor) =>
   lazy(async () => ({ default: await importer(descriptor) }));
 
 export const mergeDescriptors = (first, ...rest) =>

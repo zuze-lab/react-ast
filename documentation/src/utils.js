@@ -1,7 +1,7 @@
 import * as mui from '@material-ui/core';
 import * as router from 'react-router-dom';
 import React from 'react';
-import { createModuleImporter, createComponentResolver } from '@zuze/react-ast';
+import { createImporter, createComponentResolver } from '@zuze/react-ast';
 import Interweave from 'interweave';
 import Code from './components/Code';
 import Tabs from './components/Tabs';
@@ -16,7 +16,7 @@ export const delay = (by = 1000) => async (promise) => {
   return r;
 };
 
-const moduleImporter = createModuleImporter(
+const moduleImporter = createImporter(
   async ({ module, component }) =>
     (await import(`./modules/${module}`))[component]
 );

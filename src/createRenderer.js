@@ -2,7 +2,7 @@ import { createElement } from 'react';
 import { createParser } from './createParser';
 import { mergeDescriptors, stringifyPath } from './utils';
 
-export const createDynamicRenderer = ({
+export const createRenderer = ({
   descriptor,
   components = {},
   render,
