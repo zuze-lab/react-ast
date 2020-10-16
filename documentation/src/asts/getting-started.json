@@ -7,28 +7,9 @@
       }
     }
   },
-  "EXTERNAL_LINK": {
-    "component": "Link",
-    "module": "mui",
-    "props": {
-      "target": "_blank"
-    }
-  },
   "FRAGMENT": {
     "component": "Fragment",
     "module": "react"
-  },
-  "TITLE_CMP": {
-    "component": "Typography",
-    "module": "mui",
-    "props": {
-      "variant": "h3"
-    },
-    "styles": {
-      "root": {
-        "marginBottom": 20
-      }
-    }
   },
   "MAIN": {
     "component": "div",
@@ -50,15 +31,17 @@
     "component": "div",
     "children": [
       {
-        "$cmp": "{{TITLE_CMP}}",
+        "$cmp": "{{common.HEADING}}",
         "children": [
           "Usage"
         ]
       },
       {
         "$cmp": {
-          "component": "LiveEditor",
-          "props": "{{$snippets.usageFull}}"
+          "component": "Snippet",
+          "props": {
+            "source": "usage"
+          }
         }
       }
     ]
@@ -67,7 +50,7 @@
     "component": "div",
     "children": [
       {
-        "$cmp": "{{TITLE_CMP}}",
+        "$cmp": "{{common.HEADING}}",
         "children": [
           "Installation"
         ]
@@ -98,18 +81,13 @@
     "children": [
       "@zuze/react-ast is available as an ",
       {
-        "$cmp": {
-          "component": "Link",
-          "module": "mui",
-          "props": {
-            "color": "primary",
-            "target": "_blank",
-            "href": "https://npmjs.org"
-          },
-          "children": [
-            "NPM package"
-          ]
-        }
+        "$cmp": "{{common.EXTERNAL_LINK}}",
+        "props": {
+          "href": "https://npmjs.org"
+        },
+        "children": [
+          "NPM package"
+        ]
       }
     ]
   },
@@ -162,7 +140,7 @@
     "children": [
       "@zuze/react-ast supports ",
       {
-        "$cmp": "{{EXTERNAL_LINK}}",
+        "$cmp": "{{common.EXTERNAL_LINK}}",
         "props": {
           "href": "https://www.npmjs.com/package/react"
         },

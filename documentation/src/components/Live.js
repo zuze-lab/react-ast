@@ -3,7 +3,7 @@ import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import { defaultProps } from 'prism-react-renderer';
 import ReactAST from '@zuze/react-ast';
 import { Button } from '@material-ui/core';
-import Code from '../components/Code';
+import Code from './Code';
 
 export const Live = ({ imports, code, live, allowLive = true }) => {
   const [showLive, setShowLive] = useState(false);

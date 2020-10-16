@@ -6,6 +6,8 @@ import Interweave from 'interweave';
 import Code from './components/Code';
 import Tabs from './components/Tabs';
 import WithStyles from './components/WithStyles';
+import { LazyAST } from './components/LazyAST';
+import { Snippet } from './components/Snippet';
 
 export const delay = (by = 1000) => async (promise) => {
   const p = new Promise((resolve) => setTimeout(() => resolve(), by));
@@ -21,6 +23,8 @@ const moduleImporter = createModuleImporter(
 
 export const resolver = createComponentResolver(
   ({ module, component }) => {
+    if (component === 'Snippet') return Snippet;
+    if (component === 'LazyAST') return LazyAST;
     if (component === 'Code') return Code;
     if (component === 'Tabs') return Tabs;
     if (component === 'Interweave') return Interweave;
@@ -52,5 +56,6 @@ export const astRenderer = ({ render, descriptor, ...rest }) => {
 };
 
 export const context = {
-  BASE_PATH: process.env.NODE_ENV === 'production' ? '/react-ast/' : ''
+  BASE_PATH: process.env.NODE_ENV === 'production' ? '/react-ast/' : '',
+  GITHUB: 'https://github.com/zuze-lab/react-ast'
 };

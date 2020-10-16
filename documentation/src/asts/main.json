@@ -1,11 +1,53 @@
 {
   "__ROUTE_HOME": "/",
+  "__ROUTE_GUIDES": "/guides",
   "__ROUTE_GETTING_STARTED": "/getting-started",
   "__ROUTE_INTERPOLATION": "/interpolation",
   "__ROUTE_RESOLVERS": "/resolvers",
   "__ROUTE_RENDERERS": "/renderers",
-  "__GITHUB_LINK": "https://github.com/zuze-lab/react-ast",
+  "__ROUTE_CODE_SPLITTING": "{{__ROUTE_GUIDES}}/code-splitting",
   "__ACTIVE_LINK_COLOR": "rgba(0,0,0,0.2)",
+  "ROUTES": {
+    "HOME": {
+      "component": "LazyAST",
+      "props": {
+        "source": "home"
+      }
+    },
+    "GETTING_STARTED": {
+      "component": "LazyAST",
+      "props": {
+        "source": "getting-started"
+      }
+    },
+    "RESOLVERS": {
+      "component": "LazyAST",
+      "props": {
+        "source": "resolvers"
+      }
+    },
+    "INTERPOLATION": {
+      "component": "LazyAST",
+      "props": {
+        "source": "interpolation"
+      }
+    },
+    "RENDERERS": {
+      "component": "LazyAST",
+      "props": {
+        "source": "renderers"
+      }
+    },
+    "CODE_SPLITTING": {
+      "component": "LazyAST",
+      "props": {
+        "source": "code-splitting"
+      }
+    }
+  },
+  "__LAZY_AST": {
+    "component": "LazyAST"
+  },
   "SUSPENSE": {
     "component": "Suspense",
     "module": "react",
@@ -57,10 +99,7 @@
           },
           "children": [
             {
-              "$cmp": "{{ROUTE_HOME}}",
-              "props": {
-                "key": "fred"
-              }
+              "$cmp": "{{ROUTES.HOME}}"
             }
           ]
         }
@@ -75,7 +114,7 @@
           },
           "children": [
             {
-              "$cmp": "{{ROUTE_GETTING_STARTED}}"
+              "$cmp": "{{ROUTES.GETTING_STARTED}}"
             }
           ]
         }
@@ -90,7 +129,7 @@
           },
           "children": [
             {
-              "$cmp": "{{ROUTE_INTERPOLATION}}"
+              "$cmp": "{{ROUTES.INTERPOLATION}}"
             }
           ]
         }
@@ -105,7 +144,7 @@
           },
           "children": [
             {
-              "$cmp": "{{ROUTE_RESOLVERS}}"
+              "$cmp": "{{ROUTES.RESOLVERS}}"
             }
           ]
         }
@@ -120,7 +159,22 @@
           },
           "children": [
             {
-              "$cmp": "{{ROUTE_RENDERERS}}"
+              "$cmp": "{{ROUTES.RENDERERS}}"
+            }
+          ]
+        }
+      },
+      {
+        "$cmp": {
+          "component": "Route",
+          "module": "router",
+          "props": {
+            "exact": true,
+            "path": "{{__ROUTE_CODE_SPLITTING}}"
+          },
+          "children": [
+            {
+              "$cmp": "{{ROUTES.CODE_SPLITTING}}"
             }
           ]
         }
@@ -134,32 +188,6 @@
           }
         }
       }
-    ]
-  },
-  "ROUTE_HOME": {
-    "module": "home",
-    "component": "Home"
-  },
-  "ROUTE_GETTING_STARTED": {
-    "module": "getting-started",
-    "component": "default"
-  },
-  "ROUTE_INTERPOLATION": {
-    "component": "span",
-    "children": [
-      "INTERPOLATION"
-    ]
-  },
-  "ROUTE_RESOLVERS": {
-    "component": "span",
-    "children": [
-      "Resolvers"
-    ]
-  },
-  "ROUTE_RENDERERS": {
-    "component": "span",
-    "children": [
-      "Renderers"
     ]
   },
   "PAGE": {
@@ -340,7 +368,7 @@
           "component": "IconButton",
           "module": "mui",
           "props": {
-            "href": "{{__GITHUB_LINK}}",
+            "href": "{{$GITHUB}}",
             "target": "_blank"
           },
           "children": [
@@ -492,9 +520,17 @@
         ]
       },
       {
-        "$cmp": "{{NAVLISTITEM}}",
+        "$cmp": "{{NAVLINK}}",
+        "props": {
+          "to": "{{__ROUTE_CODE_SPLITTING}}"
+        },
         "children": [
-          "Code Splitting"
+          {
+            "$cmp": "{{NAVLISTITEM}}",
+            "children": [
+              "Code Splitting"
+            ]
+          }
         ]
       },
       {

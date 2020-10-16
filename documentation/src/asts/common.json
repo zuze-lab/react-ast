@@ -1,0 +1,24 @@
+{
+    "HEADING": {
+        "component": "Typography",
+        "module": "mui",
+        "props": {
+            "variant": "h3"
+        },
+        "styles": {
+            "root": {
+                "marginBottom": 20
+            }
+        }
+    },
+    "HTML": {
+        "component": "Interweave"
+    },
+    "EXTERNAL_LINK": {
+        "component": "Link",
+        "module": "mui",
+        "props": {
+            "target": "_blank"
+        }
+    }
+}

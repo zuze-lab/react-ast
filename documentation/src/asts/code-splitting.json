@@ -1,0 +1,38 @@
+{
+    "MAIN": {
+        "component": "Fragment",
+        "module": "react",
+        "children": [
+            {
+                "$cmp": "{{common.HEADING}}",
+                "children": [
+                    "Code Splitting"
+                ]
+            },
+            {
+                "$cmp": "{{INTRO}}"
+            }
+        ]
+    },
+    "INTRO": {
+        "component": "Typography",
+        "module": "mui",
+        "children": [
+            {
+                "$cmp": "{{common.HTML}}",
+                "props": {
+                    "content": "This documentation site is crafted almost entirely from component descriptors, using just a couple of helper components.<br>The way it is built is <em><strong>not recommended</strong></em>, but used to illustrate how to build an extremely low code React application. "
+                }
+            },
+            {
+                "$cmp": "{{common.EXTERNAL_LINK}}",
+                "props": {
+                    "href": "{{$GITHUB}}/tree/main/documentation/src/asts"
+                },
+                "children": [
+                    "Check it out"
+                ]
+            }
+        ]
+    }
+}

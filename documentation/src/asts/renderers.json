@@ -1,0 +1,8 @@
+{
+    "MAIN": {
+        "component": "div",
+        "children": [
+            "Renderers"
+        ]
+    }
+}
