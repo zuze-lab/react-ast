@@ -378,7 +378,8 @@ Very simple, a `ComponentResolver` is passed the `ComponentDescriptor` and retur
 
 
 ```js
-(descriptor) => ReactElement;
+// type
+// (descriptor: ComponentDescriptor) => ReactElement;
 
 // example using a module property on the component descriptor
 import * as mui from `@material-ui/core`;
@@ -427,13 +428,7 @@ const resolver = ({module,component}) => {
 
 #### Code Splitting with Module Resolvers
 
-[React.lazy]() is a component - so it becomes trivial to code split with the proper resolver:
-
-```js
-code example
-```
-
-To set up your [create-react-app]() for code splitting, all you need to do is put a `jsconfig.json` file in your base directory and put this in it:
+To set up your [create-react-app](https://github.com/facebook/create-react-app) for code splitting, all you need to do is put a `jsconfig.json` file in your base directory and put this in it:
 
 ```js
 {
@@ -451,11 +446,9 @@ const resolver = createComponentResolver(importer);
 ```
 
 
-**NOTE**: In order to tell webpack what bundles need to be generated, it's critical that the dynamic import have a fixed prefix - hence `./components/${component}`. 
+**NOTE**: In order to tell webpack what bundles need to be generated, it's critical that the dynamic import have a fixed prefix - hence `./components/${component}`. If we just did `import(component)` - webpack would not be able to determine what bundles need to be generated.
 
-If we just did `import(component)` - webpack would not be able to determine what bundles need to be generated.
-
-**NOTE 2**: **DD NOT** dynamically import all your components. This will result in **too much** code splitting and worse user-experience (because **all** your components will require HTTP requests). The pattern we suggest is to group together commonly used components into `modules`. Read more in [the code splitting guide](https://zuze-lab.github.io/react-ast/guides/code-splitting)
+**NOTE 2**: It is **necessary** to wrap your resolver in `createComponentResolver` when dynamically importing components. [find out why](#createComponentResolver)
 
 ### Renderer
 
@@ -554,6 +547,20 @@ const MyRendererComponent = ({key,render,descriptor}) => {
 
 
 ```
+
+### `createComponentResolver`
+
+It's **critical** that the same component is always returned from the `resolver` given the same descriptor. Otherwise, components will be unmounted and state will be lost. `createComponentResolver` maintains an internal `cache` that can be configured by supplying the second parameter to `createComponentResolver`
+
+```js
+createComponentResolver(resolver: Resolver, cacheFn: (descriptor) => string = ({component}) => component)
+```
+
+The `cacheFn` function accepts a `ComponentDescriptor` and must return a `string`. By default it uses the `component` field.
+
+It's only necessary to use this function if you are dynamically importing components using `createImporter` because the importer creates a [`React.lazy`](https://reactjs.org/docs/code-splitting.html#reactlazy) component. This **same** `React.lazy` component instance must always be returned.
+
+`createImporter` (and `React.lazy`) is just **one way** to utilize code-splitting, but it's not the only way. We utilize code splitting in our [LazyAST](https://github.com/zuze-lab/react-ast/blob/main/documentation/src/components/LazyAST.js) and [Snippet](https://github.com/zuze-lab/react-ast/blob/main/documentation/src/components/Snippet.js) components for our documentation site without using `React.lazy`
 
 ## License
 
