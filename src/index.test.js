@@ -1,7 +1,7 @@
-import { createDynamicRenderer } from './createDynamicRenderer';
+import { createRenderer } from './createRenderer';
 
-describe('createDynamicRenderer', () => {
+describe('createRenderer', () => {
   it('is truthy', () => {
-    expect(createDynamicRenderer).toBeTruthy();
+    expect(createRenderer).toBeTruthy();
   });
 });

@@ -1,11 +1,9 @@
 import { traverse, get, stringifyPath } from './utils';
 
-const createVarParser = (
-  pattern,
-  { context, components },
-  contextKey,
-  cmpKey
-) => (descriptor, path) =>
+const createVarParser = (pattern, { context, components }, contextKey) => (
+  descriptor,
+  path
+) =>
   traverse(
     descriptor,
     (v) => typeof v === 'string',
