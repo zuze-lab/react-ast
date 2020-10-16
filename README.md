@@ -10,7 +10,7 @@ A pretty straightforward recursive renderer with a tiny amount of syntactic suga
 
 ## Why?
 
-¯\_(ツ)_/¯
+¯\\\_(ツ)_/¯
 
 
 ## Install
