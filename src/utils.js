@@ -35,7 +35,10 @@ export const traverse = (what, test, then, path = []) =>
         });
       }, {});
 
-export const createComponentResolver = (resolver, cacheFn) => {
+export const createComponentResolver = (
+  resolver,
+  cacheFn = ({ component }) => component
+) => {
   const cache = {};
   return (descriptor) => {
     const k = cacheFn(descriptor);

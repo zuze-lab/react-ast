@@ -38,7 +38,14 @@ export const Live = ({ imports, code, live, allowLive = true }) => {
               <LiveEditor disabled={!showLive} />
             </div>
             {showLive && (
-              <div style={{ flex: '0 0 50%', padding: 10 }}>
+              <div
+                style={{
+                  flex: '0 0 50%',
+                  border: `4px solid ${defaultProps.theme.plain.backgroundColor}`,
+                  padding: 10,
+                  backgroundColor: 'rgba(0, 0, 0, 0.1)'
+                }}
+              >
                 <LiveError />
                 <LivePreview />
               </div>

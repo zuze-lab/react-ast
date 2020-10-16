@@ -1,7 +1,7 @@
 import * as mui from '@material-ui/core';
 import * as router from 'react-router-dom';
 import React from 'react';
-import { createModuleImporter } from '@zuze/react-ast';
+import { createModuleImporter, createComponentResolver } from '@zuze/react-ast';
 import Interweave from 'interweave';
 import Code from './components/Code';
 import Tabs from './components/Tabs';
@@ -19,26 +19,29 @@ const moduleImporter = createModuleImporter(
     (await import(`./modules/${module}`))[component]
 );
 
-export const resolver = ({ module, component }) => {
-  if (component === 'Code') return Code;
-  if (component === 'Tabs') return Tabs;
-  if (component === 'Interweave') return Interweave;
-  if (component === 'LiveEditor')
-    return moduleImporter({ module: 'live', component: 'Live' });
+export const resolver = createComponentResolver(
+  ({ module, component }) => {
+    if (component === 'Code') return Code;
+    if (component === 'Tabs') return Tabs;
+    if (component === 'Interweave') return Interweave;
+    if (component === 'LiveEditor')
+      return moduleImporter({ module: 'live', component: 'Live' });
 
-  switch (module) {
-    case undefined:
-      return component;
-    case 'react':
-      return React[component];
-    case 'mui':
-      return mui[component];
-    case 'router':
-      return router[component];
-    default:
-      return moduleImporter({ module, component });
-  }
-};
+    switch (module) {
+      case undefined:
+        return component;
+      case 'react':
+        return React[component];
+      case 'mui':
+        return mui[component];
+      case 'router':
+        return router[component];
+      default:
+        return moduleImporter({ module, component });
+    }
+  },
+  ({ module, component }) => `${module}${component}`
+);
 
 export const astRenderer = ({ render, descriptor, ...rest }) => {
   return descriptor.styles ? (

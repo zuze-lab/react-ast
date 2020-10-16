@@ -7,6 +7,13 @@
       }
     }
   },
+  "EXTERNAL_LINK": {
+    "component": "Link",
+    "module": "mui",
+    "props": {
+      "target": "_blank"
+    }
+  },
   "FRAGMENT": {
     "component": "Fragment",
     "module": "react"
@@ -96,6 +103,7 @@
           "module": "mui",
           "props": {
             "color": "primary",
+            "target": "_blank",
             "href": "https://npmjs.org"
           },
           "children": [
@@ -152,14 +160,17 @@
       }
     },
     "children": [
+      "@zuze/react-ast supports ",
       {
-        "$cmp": {
-          "component": "Interweave",
-          "props": {
-            "content": "@zuze/react-ast supports <a href=\"https://www.npmjs.com/package/react\">react</a> >= 16.6.0 (the one with lazy and memo) is required"
-          }
-        }
-      }
+        "$cmp": "{{EXTERNAL_LINK}}",
+        "props": {
+          "href": "https://www.npmjs.com/package/react"
+        },
+        "children": [
+          "react"
+        ]
+      },
+      " >= 16.6.0 (the one with lazy and memo) is required"
     ]
   }
 }
