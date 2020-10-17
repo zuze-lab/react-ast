@@ -11,19 +11,26 @@ const isTraverseable = (w) =>
     typeof w === 'string'
   );
 
-const traverseArray = (arr, using) =>
-  arr.reduce((acc, item, i) => {
-    const next = using(item, i);
-    return next !== item ? [...acc].splice(i, 1, next) : acc;
-  }, arr);
+const traverseArray = (arr, using) => {
+  let transformed = false;
+  const next = arr.map((item, i) => {
+    const mapped = using(item, i);
+    transformed = transformed || mapped !== item;
+    return mapped;
+  });
+  return transformed ? next : arr;
+};
 
-const traverseObject = (o, using) =>
-  Object.entries(o).reduce((acc, [k, v]) => {
+const traverseObject = (o, using) => {
+  let transformed = false;
+  const next = Object.entries(o).reduce((acc, [k, v]) => {
     const key = using(k);
     const value = using(v, key);
-
-    return key !== k || v !== value ? { ...acc, [key]: value } : acc;
-  }, o);
+    transformed = transformed || key !== k || v !== value;
+    return { ...acc, [key]: value };
+  }, {});
+  return transformed ? next : o;
+};
 
 const traverse = (what, transform, path = []) => {
   const transformed = transform(what, path);

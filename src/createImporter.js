@@ -1,4 +1,6 @@
 import { lazy } from 'react';
+// simple helper function to return a React.lazy component
+// using the component returned from an await-ed importer function called with a descriptor
 export default (importer) => (descriptor) =>
   lazy(async () => {
     try {

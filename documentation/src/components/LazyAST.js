@@ -9,15 +9,13 @@ export const LazyAST = ({ source, loading = null }) => {
     let canceled;
     (async () => {
       try {
-        const { MAIN, ...rest } = (
-          await import(`../asts/${source}.json`)
-        ).default;
+        const components = (await import(`../asts/${source}.json`)).default;
         if (canceled) return;
         // NOTE - pass the MAIN component as the descriptor prop
         // and pass the rest of the components as the components prop
         // We will also pass the common components json file to allow
         // reuse of common component definitions using interpolation
-        setProps({ descriptor: MAIN, components: { ...rest, common } });
+        setProps({ root: 'MAIN', components: { ...components, common } });
       } catch (err) {
         if (canceled) return;
         window.alert(

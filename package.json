@@ -49,13 +49,10 @@
     "prettier": "^2.0.4",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^3.4.1",
+    "coveralls": "^3.1.0"
   },
   "files": [
     "dist"
-  ],
-  "dependencies": {
-    "@zuze/interpolate": "^6.2.1",
-    "coveralls": "^3.1.0"
-  }
+  ]
 }
