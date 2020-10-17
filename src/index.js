@@ -1,4 +1,2 @@
-import { memo } from 'react';
-import { createRenderer } from './createRenderer';
-export { createImporter, createComponentResolver } from './utils';
-export default memo(createRenderer);
+export { default as createResolver } from './createResolver';
+export { default as createImporter } from './createImporter';

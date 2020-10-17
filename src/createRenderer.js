@@ -1,64 +1,32 @@
 import { createElement } from 'react';
-import { createParser } from './createParser';
-import { mergeDescriptors, stringifyPath } from './utils';
+import { identityFactory } from './utils';
 
-export const createRenderer = ({
-  descriptor,
-  components = {},
-  render,
-  children = ({ render }) => render(),
+export default ({
   Component,
-  resolver,
-  cmpKey = '$cmp',
-  merge = mergeDescriptors,
-  interpolate = /\{\{(.+?)\}\}/g,
-  context = {},
-  contextKey = '$',
-  initialPath = ['ROOT']
-}) => {
-  if (!resolver) throw new Error('A resolver function is required');
+  render = ({ render }) => render(),
+  resolver = ({ component }) => component,
+  parserCreator = identityFactory
+} = {}) => {
+  const parse = parserCreator((...args) => fn(...args));
 
-  const parse = createParser(
-    (...args) => fn(...args),
-    cmpKey,
-    contextKey,
-    { context, components },
-    interpolate,
-    merge
-  );
-
-  const fn = (resolved, path = initialPath) => {
-    const key = stringifyPath(path);
-
-    if (!resolved)
-      throw new Error(`Failed to resolve component found at path ${key}`);
-
+  const fn = (descriptor) => {
     const props = {
-      descriptor: resolved,
-      key,
-      render: (innerProps = {}, descriptor = resolved) => {
-        const final = parse(
-          {
-            ...descriptor,
-            props: {
-              key,
-              children: descriptor.children,
-              ...descriptor.props,
-              ...innerProps
-            },
-            key
-          },
-          path
-        );
-
+      descriptor,
+      render: (innerProps = {}) => {
+        const final = parse({
+          ...descriptor,
+          props: {
+            children: descriptor.children,
+            ...descriptor.props,
+            ...innerProps
+          }
+        });
         return createElement(resolver(final), final.props);
       }
     };
 
-    return Component
-      ? createElement(Component, props)
-      : (render || children)(props);
+    return Component ? createElement(Component, props) : render(props);
   };
 
-  return fn(descriptor);
+  return fn;
 };
