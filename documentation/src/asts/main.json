@@ -9,10 +9,10 @@
   "__ACTIVE_LINK_COLOR": "rgba(0,0,0,0.2)",
   "ROUTES": {
     "HOME": {
-      "component": "div",
-      "children": [
-        "hi"
-      ]
+      "component": "LazyAST",
+      "props": {
+        "source": "home"
+      }
     },
     "GETTING_STARTED": {
       "component": "LazyAST",

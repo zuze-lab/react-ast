@@ -14,9 +14,7 @@ const ReactAST = ({
     path={[root]}
     context={(path) => {
       const from = path[0] === contextKey ? context : components;
-      const f = { [path]: get(from, from === context ? path.substr(1) : path) };
-      console.log(path, f);
-      return f;
+      return get(from, from === context ? path.substr(1) : path);
     }}
     {...props}
   />

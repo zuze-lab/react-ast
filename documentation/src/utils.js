@@ -38,9 +38,9 @@ export const resolver = createResolver(
   ({ module, component }) => `${module}${component}`
 );
 
-export const astRenderer = ({ render, descriptor }) => {
+export const astRenderer = ({ render, descriptor, ...rest }) => {
   return descriptor.styles ? (
-    <WithStyles render={render} styles={descriptor.styles} />
+    <WithStyles {...rest} render={render} styles={descriptor.styles} />
   ) : (
     render()
   );

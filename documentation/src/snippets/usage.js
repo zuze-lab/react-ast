@@ -7,10 +7,12 @@ import ReactAST from '@zuze/react-ast'
   code: `
 const App = () => (
   <ReactAST 
-    descriptor={{
-      component:'div',
-      props: { title: 'I\\'m a div' },
-      children: [ 'Hello World!' ]
+    components={{
+      MAIN:{
+        component:'div',
+        props: { title: 'I\\'m a div' },
+        children: [ 'Hello World!' ]
+      }
     }} 
     resolver={({component}) => component}
   />

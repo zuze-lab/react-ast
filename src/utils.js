@@ -11,9 +11,8 @@ export const interpolate = (template, val, match) => {
 
   const replaced = template.replace(match, (e, t) => {
     shouldReplaceFull = e === template;
-    found = get(typeof val === 'function' ? val(t) : val, t);
-    if (!shouldReplaceFull) return found || '';
-    return '';
+    found = typeof val === 'function' ? val(t) : get(val, t);
+    return shouldReplaceFull ? '' : found;
   });
 
   return shouldReplaceFull ? found : replaced;
