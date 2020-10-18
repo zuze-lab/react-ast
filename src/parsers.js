@@ -24,14 +24,18 @@ const component = (key, merge, creator, descriptor, path) =>
     path
   );
 
-const interpolation = (match, context, thing) =>
+const interpolation = (match, context, thing, path) =>
   // if there is no context, don't both traversing
   context
     ? // otherwise traverse and interpolate all strings
       // using the library
-      traverse(thing, (v) =>
-        typeof v === 'string' ? interpolate(v, context, match) : undefined
-      )
+      traverse(thing, (v) => {
+        if (typeof v !== 'string') return undefined;
+        const next = interpolate(v, context, match);
+        if (next === undefined)
+          throw new Error(`Failed to interpolate ${v} at ${path.join('//')}`);
+        return next;
+      })
     : thing;
 
 export { interpolation, component };
