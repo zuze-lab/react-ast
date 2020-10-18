@@ -10,8 +10,9 @@ export default ({
   resolver = ({ component }) => component,
   parse = identity
 } = {}) => {
-  const closure = (descriptor, ...rest) =>
-    render(
+  const closure = (descriptor, ...rest) => {
+    if (!descriptor) throw new Error(`A component descriptor was not provided`);
+    return render(
       {
         descriptor,
         render: (innerProps = {}) => {
@@ -32,6 +33,7 @@ export default ({
       },
       ...rest
     );
+  };
 
   return closure;
 };

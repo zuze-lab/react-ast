@@ -13,6 +13,7 @@ const DynamicComponent = ({
   render,
   children = ({ render }) => render(),
   resolver,
+  // not a fan of passing in path here, maybe just turn this into ReactAST?
   path = ['ROOT']
 }) =>
   createRenderer({
@@ -23,6 +24,10 @@ const DynamicComponent = ({
         render: (props = {}) => innerRender({ key, ...props }),
         key
       };
+
+      if (children && typeof children !== 'function')
+        throw new Error(`children can only be provided as a render function`);
+
       return Component
         ? createElement(Component, next)
         : (render || children)(next);
