@@ -7,5 +7,7 @@ export default (
   cache = {}
 ) => (descriptor) => {
   const k = cacheFn(descriptor);
+  if (typeof k !== 'string')
+    throw new Error(`The cacheFunction must return a string`);
   return cache[k] || (cache[k] = resolver(descriptor));
 };

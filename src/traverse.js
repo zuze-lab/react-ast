@@ -3,13 +3,11 @@
 // OR the value is a leaf node
 
 const isTraverseable = (w) =>
-  !(
-    !w ||
-    typeof w === 'function' ||
-    typeof w === 'number' ||
-    typeof w === 'boolean' ||
-    typeof w === 'string'
-  );
+  w &&
+  typeof w !== 'function' &&
+  typeof w !== 'number' &&
+  typeof w !== 'boolean' &&
+  typeof w !== 'string';
 
 const traverseArray = (arr, using) => {
   let transformed = false;
