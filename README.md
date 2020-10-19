@@ -23,6 +23,8 @@ Building high quality, highly reusable components is the best approach to [react
 
 The rest of this README is geared towards technical users and how to implement `@zuze/react-ast`. After implementing `@zuze/react-ast`, you'll need to create your own documentation (hopefully we can help with that too!) about what components are available for your non-technical users to configure and how they can be configured.
 
+
+
 ## Install
 
 ```bash
@@ -44,9 +46,11 @@ import ReactAST from '@zuze/react-ast'
 
 const App = () => (
   <ReactAST 
-    descriptor={{
-      component: 'h1',
-      children: ['Hello World']
+    components={{
+      MAIN: {
+        component: 'h1',
+        children: ['Hello World']
+      }
     }}
   />
 );
@@ -65,20 +69,22 @@ import ReactAST from '@zuze/react-ast'
 
 const App = () => (
   <ReactAST 
-    descriptor={{
-      component: 'h1',
-      children: [
-        'Please click on this ',
-        {
-          $cmp: {
-            component: 'a'
-            props: {
-              href: 'https://www.google.com'
-            },
-            children:['link to Google']
+    components={{
+      MAIN: {
+        component: 'h1',
+        children: [
+          'Please click on this ',
+          {
+            $cmp: {
+              component: 'a'
+              props: {
+                href: 'https://www.google.com'
+              },
+              children:['link to Google']
+            }
           }
-        }
-      ]
+        ]
+      }
     }}
   />
 );
@@ -91,9 +97,9 @@ ReactDOM.render(<App/>, document.getElementById('root'));
 
 ## Props
 
-- `descriptor: ComponentDescriptor` - A `ComponentDescriptor`
+- `components: { [key: string]: ComponentDescriptor }` - A map of `ComponentDescriptors`
+- `root: = 'MAIN'` - The key of the `ComponentDescriptor` to start rendering
 - `resolver: ComponentResolver` - Given a `ComponentDescriptor`, return a Component
-- `components?:  ComponentMap` - An optional map of `ComponentDescriptors` that can be used to interpolate things from (see [interpolation and context](#interpolation-and-context))
 - `Component?: ReactElement` - Render a descriptor using a Component
 - `render?: Renderer` - Render a descriptor using a function
 - `children?: Renderer` - Alternate way to render a descriptor using a function
@@ -107,17 +113,17 @@ ReactDOM.render(<App/>, document.getElementById('root'));
 
 ## Interpolation and Context
 
-Interpolation and context is the core of `@zuze/react-ast`. Simply, it works like this:
+Interpolation and context is at the very core of `@zuze/react-ast`. Simply, it works like this:
 
 ```jsx
-const myRootComponentDescriptor = {
-  component: 'div',
-  children: [ 'Hi {{$user}}!' ]
-}
-
 const App = () => (
    <ReactAST 
-      descriptor={myRootComponentDescriptor} 
+      components={{
+        MAIN: {
+          component: 'div',
+          children: [ 'Hi {{$user}}!' ]
+        }
+      }} 
       context={{
         user:'joe'
       }}
@@ -130,17 +136,19 @@ const App = () => (
 Interpolation is not just for strings. You can interpolate functions:
 
 ```js
-const myRootComponentDescriptor = {
-  component: 'div',
-  props: {
-    onClick: '{{$showAlert}}'
-  },
-  children: [ 'Hi {{$user}}!' ]
-}
+
 
 const App = () => (
    <ReactAST 
-      descriptor={myRootComponentDescriptor} 
+      components={{
+        MAIN: {
+          component: 'div',
+          props: {
+            onClick: '{{$showAlert}}'
+          },
+          children: [ 'Hi {{$user}}!' ]
+        }        
+      }} 
       context={{
         user: 'joe'
         showAlert: () => {
@@ -156,14 +164,15 @@ const App = () => (
 ... arrays:
 
 ```js
-const myRootComponentDescriptor = {
-  component: 'div',
-  children: '{{$friends}}'
-}
 
 const App = () => (
    <ReactAST 
-      descriptor={myRootComponentDescriptor} 
+      components={{
+        MAIN: {
+          component: 'div',
+          children: '{{$friends}}'
+        }
+      }} 
       context={{
         friends: ['joe','bill','sam']
       }}
@@ -176,20 +185,19 @@ const App = () => (
 ...full objects:
 
 ```jsx
-const myRootComponentDescriptor = {
-  component: 'div',
-  children: [ 
-    'Hi {{$user}}!',
-    {
-      $cmp: '{{ANOTHER_DIV}}'
-    }
-  ]
-}
 
 const App = () => (
    <ReactAST 
-      descriptor={myRootComponentDescriptor} 
       components={{
+        MAIN: {
+          component: 'div',
+          children: [ 
+            'Hi {{$user}}!',
+            {
+              $cmp: '{{ANOTHER_DIV}}'
+            }
+          ]
+        },
         ANOTHER_DIV: {
           component: 'div',
           children: ['Im another div']
@@ -204,20 +212,18 @@ const App = () => (
 ... which can be used to create composable dynamic components (🎉🎉🎉):
 
 ```jsx
-const myRootComponentDescriptor = {
-  component: 'div',
-  children: [ 
-    {
-      $cmp: '{{TITLE_CMP}}',
-      children: ['Hi {{$user}}!']
-    }
-  ]
-}
-
 const App = () => (
    <ReactAST 
-      descriptor={myRootComponentDescriptor} 
       components={{
+        MAIN: {
+          component: 'div',
+          children: [ 
+            {
+              $cmp: '{{TITLE_CMP}}',
+              children: ['Hi {{$user}}!']
+            }
+          ]
+        }
         TITLE_CMP: {
           component: 'h1',
           props: {
@@ -240,30 +246,28 @@ When combining component descriptors in the way detailed above, the `merge` prop
 
 ```js
 // example
-const myRootComponentDescriptor = {
-  component: 'div'
-  children: [
-    {
-      $cmp: "SECOND",
-      props: {
-        propA: 'New A',
-        propB: 'New B',
-      }
-    },
-    {
-      $cmp: "SECOND",
-      props: {
-        propD: 'New D',
-      },
-      children: ['Child 1','Child 2']
-    }      
-  ]
-};
-
 const App = () => (
    <ReactAST 
-      descriptor={myRootComponentDescriptor} 
       components={{
+        MAIN: {
+          component: 'div'
+          children: [
+            {
+              $cmp: "SECOND",
+              props: {
+                propA: 'New A',
+                propB: 'New B',
+              }
+            },
+            {
+              $cmp: "SECOND",
+              props: {
+                propD: 'New D',
+              },
+              children: ['Child 1','Child 2']
+            }      
+          ]
+        },
         SECOND: {
           component: 'span',
           props: {
@@ -301,11 +305,15 @@ A ComponentMap is a key-value map of `ComponentDescriptor`s. The string `keys` a
 
 // example
 <ReactAST
-  descriptor={{
-    component:'div',
-    children:[ { $cmp: '{{OTHER_COMPONENT}}}' } ]
-  }}
   components={{
+    MAIN: {
+      component:'div',
+      children:[ 
+        { 
+          $cmp: '{{OTHER_COMPONENT}}}' 
+        } 
+      ]    
+    },
     OTHER_COMPONENT: {
       component: 'span',
       children: [ 'Hello World!' ]
@@ -331,12 +339,14 @@ Only `props` and `children` are treated as special keys in a `ComponentDescripto
 
 // example of a host component (no module)
 <ReactAST
-  descriptor={{
-    component: 'span',
-    props: { 
-      title: 'My Span Title' 
-    },
-    children: [ 'Hello world!' ]
+  components={{
+    MAIN: {
+      component: 'span',
+      props: { 
+        title: 'My Span Title' 
+      },
+      children: [ 'Hello world!' ]
+    }
   }}
 />
 
@@ -357,19 +367,21 @@ A DynamicComponent is simply a resolved `ComponentDescriptor` to a React Compone
 
 
 <ReactAST
-  descriptor={{
-    component: 'div',
-    children: [
-      {
-        $cmp: {
-          component: 'span',
-          props: {
-            title: 'My Span Title',
-          },
-          children: [ 'Hello World!' ]
+  components={{
+    MAIN: {
+      component: 'div',
+      children: [
+        {
+          $cmp: {
+            component: 'span',
+            props: {
+              title: 'My Span Title',
+            },
+            children: [ 'Hello World!' ]
+          }
         }
-      }
-    ]
+      ]
+    }
   }}
 />
 
@@ -401,12 +413,14 @@ const resolver = ({component}) => {
 
 <ReactAST
   resolver={resolver}
-  descriptor={{
-    component: 'MuiButton',
-    props: {
-      variant: 'contained'
-    },
-    children: [ 'Click Me!' ]
+  components={{
+    MAIN: {
+      component: 'MuiButton',
+      props: {
+        variant: 'contained'
+      },
+      children: [ 'Click Me!' ]
+    }
   }}
 />
 
@@ -425,13 +439,15 @@ const resolver = ({module,component}) => {
 
 <ReactAST
   resolver={resolver}
-  descriptor={{
-    component: 'Button',
-    module:'mui',
-    props: {
-      variant: 'contained'
-    },
-    children: [ 'Click Me!' ]
+  components={{
+    MAIN: {
+      component: 'Button',
+      module:'mui',
+      props: {
+        variant: 'contained'
+      },
+      children: [ 'Click Me!' ]
+    }
   }}
 />
 ```
@@ -479,7 +495,8 @@ const resolver = ({module,component}) => {
 const { ThemeProvider } = mui;
 
 <ReactAST
-  descriptor={{
+  components={{
+    MAIN: {
       component: 'Button',
       module: 'mui',
       props: {
@@ -491,6 +508,7 @@ const { ThemeProvider } = mui;
       		primary: 'red'
       	}
       }
+    }
   }}
   render={({
   	render,
@@ -506,13 +524,15 @@ You can additionally pass props to the `render` function that will end up in the
 
 ```js
 <ReactAST
-  descriptor={{
+  components={{
+    MAIN: {
       component: 'Button',
       module: 'mui',
       props: {
         variant: 'contained',
       },
-      children: [ 'Hello World MUI Button!' ],
+      children: [ 'Hello World MUI Button!' ]
+    }
   }}
   render={({render}) => render({onPress:() => alert('Pressed')})}  
 />
@@ -539,7 +559,8 @@ const MyRendererComponent = ({key,render,descriptor}) => {
 }
 
 <ReactAST
-  descriptor={{
+  components={{
+    MAIN: {
       component: 'Button',
       module: 'mui',
       props: {
@@ -550,7 +571,8 @@ const MyRendererComponent = ({key,render,descriptor}) => {
           background: 'blue'
         }
       },
-      children: [ 'Hello World MUI Button!' ],
+      children: [ 'Hello World MUI Button!' ]
+    }
   }}
   Component={MyRendererComponent}
 />
