@@ -2,7 +2,7 @@
 // if the transform function returns a value
 // OR the value is a leaf node
 
-const isTraverseable = (w) =>
+export const isTraverseable = (w) =>
   w &&
   typeof w !== 'function' &&
   typeof w !== 'number' &&
@@ -30,7 +30,7 @@ const traverseObject = (o, using) => {
   return transformed ? next : o;
 };
 
-const traverse = (what, transform, path = []) => {
+export const traverse = (what, transform, path = []) => {
   const transformed = transform(what, path);
   return transformed !== undefined
     ? transformed
@@ -42,5 +42,3 @@ const traverse = (what, transform, path = []) => {
         traverse(v, transform, key === undefined ? path : [...path, key])
       );
 };
-
-export default traverse;

@@ -1,17 +1,15 @@
 {
-  "__ROUTE_HOME": "/",
-  "__ROUTE_GUIDES": "/guides",
-  "__ROUTE_GETTING_STARTED": "/getting-started",
-  "__ROUTE_INTERPOLATION": "/interpolation",
-  "__ROUTE_RESOLVERS": "/resolvers",
-  "__ROUTE_RENDERERS": "/renderers",
-  "__ROUTE_CODE_SPLITTING": "{{__ROUTE_GUIDES}}/code-splitting",
-  "__ACTIVE_LINK_COLOR": "rgba(0,0,0,0.2)",
   "ROUTES": {
     "HOME": {
       "component": "LazyAST",
       "props": {
         "source": "home"
+      }
+    },
+    "INTRO": {
+      "component": "LazyAST",
+      "props": {
+        "source": "introduction"
       }
     },
     "GETTING_STARTED": {
@@ -43,10 +41,38 @@
       "props": {
         "source": "code-splitting"
       }
+    },
+    "MATERIAL_STYLES": {
+      "component": "LazyAST",
+      "props": {
+        "source": "material.styles"
+      }
+    },
+    "CONDITIONAL": {
+      "component": "LazyAST",
+      "props": {
+        "source": "conditional"
+      }
+    },
+    "REACT_AST": {
+      "component": "LazyAST",
+      "props": {
+        "source": "react-ast"
+      }
+    },
+    "UTILITIES": {
+      "component": "LazyAST",
+      "props": {
+        "source": "utilities"
+      }
     }
   },
-  "__LAZY_AST": {
-    "component": "LazyAST"
+  "SWITCH_ROUTE": {
+    "component": "Route",
+    "module": "router",
+    "props": {
+      "exact": true
+    }
   },
   "SUSPENSE": {
     "component": "Suspense",
@@ -90,101 +116,132 @@
     "module": "router",
     "children": [
       {
-        "$cmp": {
-          "component": "Route",
-          "module": "router",
-          "props": {
-            "exact": true,
-            "path": "{{__ROUTE_HOME}}"
-          },
-          "children": [
-            {
-              "$cmp": "{{ROUTES.HOME}}"
-            }
-          ]
-        }
+        "$cmp": "{{SWITCH_ROUTE}}",
+        "props": {
+          "path": "{{common.__vars.ROUTE_INTRODUCTION}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{ROUTES.INTRO}}"
+          }
+        ]
       },
       {
-        "$cmp": {
-          "component": "Route",
-          "module": "router",
-          "props": {
-            "exact": true,
-            "path": "{{__ROUTE_GETTING_STARTED}}"
-          },
-          "children": [
-            {
-              "$cmp": "{{ROUTES.GETTING_STARTED}}"
-            }
-          ]
-        }
+        "$cmp": "{{SWITCH_ROUTE}}",
+        "props": {
+          "path": "{{common.__vars.ROUTE_HOME}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{ROUTES.HOME}}"
+          }
+        ]
       },
       {
-        "$cmp": {
-          "component": "Route",
-          "module": "router",
-          "props": {
-            "exact": true,
-            "path": "{{__ROUTE_INTERPOLATION}}"
-          },
-          "children": [
-            {
-              "$cmp": "{{ROUTES.INTERPOLATION}}"
-            }
-          ]
-        }
+        "$cmp": "{{SWITCH_ROUTE}}",
+        "props": {
+          "path": "{{common.__vars.ROUTE_GETTING_STARTED}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{ROUTES.GETTING_STARTED}}"
+          }
+        ]
       },
       {
-        "$cmp": {
-          "component": "Route",
-          "module": "router",
-          "props": {
-            "exact": true,
-            "path": "{{__ROUTE_RESOLVERS}}"
-          },
-          "children": [
-            {
-              "$cmp": "{{ROUTES.RESOLVERS}}"
-            }
-          ]
-        }
+        "$cmp": "{{SWITCH_ROUTE}}",
+        "props": {
+          "path": "{{common.__vars.ROUTE_INTERPOLATION}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{ROUTES.INTERPOLATION}}"
+          }
+        ]
       },
       {
-        "$cmp": {
-          "component": "Route",
-          "module": "router",
-          "props": {
-            "exact": true,
-            "path": "{{__ROUTE_RENDERERS}}"
-          },
-          "children": [
-            {
-              "$cmp": "{{ROUTES.RENDERERS}}"
-            }
-          ]
-        }
+        "$cmp": "{{SWITCH_ROUTE}}",
+        "props": {
+          "path": "{{common.__vars.ROUTE_RESOLVERS}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{ROUTES.RESOLVERS}}"
+          }
+        ]
       },
       {
-        "$cmp": {
-          "component": "Route",
-          "module": "router",
-          "props": {
-            "exact": true,
-            "path": "{{__ROUTE_CODE_SPLITTING}}"
-          },
-          "children": [
-            {
-              "$cmp": "{{ROUTES.CODE_SPLITTING}}"
-            }
-          ]
-        }
+        "$cmp": "{{SWITCH_ROUTE}}",
+        "props": {
+          "path": "{{common.__vars.ROUTE_RENDERERS}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{ROUTES.RENDERERS}}"
+          }
+        ]
+      },
+      {
+        "$cmp": "{{SWITCH_ROUTE}}",
+        "props": {
+          "path": "{{common.__vars.ROUTE_CODE_SPLITTING}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{ROUTES.CODE_SPLITTING}}"
+          }
+        ]
+      },
+      {
+        "$cmp": "{{SWITCH_ROUTE}}",
+        "props": {
+          "path": "{{common.__vars.ROUTE_MATERIAL_STYLES}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{ROUTES.MATERIAL_STYLES}}"
+          }
+        ]
+      },
+      {
+        "$cmp": "{{SWITCH_ROUTE}}",
+        "props": {
+          "path": "{{common.__vars.ROUTE_CONDITIONAL}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{ROUTES.CONDITIONAL}}"
+          }
+        ]
+      },
+      {
+        "$cmp": "{{SWITCH_ROUTE}}",
+        "props": {
+          "path": "{{common.__vars.ROUTE_REACTAST}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{ROUTES.REACT_AST}}"
+          }
+        ]
+      },
+      {
+        "$cmp": "{{SWITCH_ROUTE}}",
+        "props": {
+          "path": "{{common.__vars.ROUTE_UTILITIES}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{ROUTES.UTILITIES}}"
+          }
+        ]
       },
       {
         "$cmp": {
           "module": "router",
           "component": "Redirect",
           "props": {
-            "to": "{{__ROUTE_HOME}}"
+            "to": "{{common.__vars.ROUTE_HOME}}"
           }
         }
       }
@@ -302,7 +359,7 @@
           "component": "Link",
           "module": "router",
           "props": {
-            "to": "{{__ROUTE_HOME}}"
+            "to": "{{common.__vars.ROUTE_HOME}}"
           },
           "styles": {
             "root": {
@@ -432,7 +489,7 @@
     "module": "router",
     "props": {
       "activeStyle": {
-        "background": "{{__ACTIVE_LINK_COLOR}}"
+        "background": "{{common.__vars.ACTIVE_LINK_COLOR}}"
       }
     },
     "styles": {
@@ -460,7 +517,21 @@
       {
         "$cmp": "{{NAVLINK}}",
         "props": {
-          "to": "{{__ROUTE_GETTING_STARTED}}"
+          "to": "{{common.__vars.ROUTE_INTRODUCTION}}"
+        },
+        "children": [
+          {
+            "$cmp": "{{NAVLISTITEM}}",
+            "children": [
+              "Introduction"
+            ]
+          }
+        ]
+      },
+      {
+        "$cmp": "{{NAVLINK}}",
+        "props": {
+          "to": "{{common.__vars.ROUTE_GETTING_STARTED}}"
         },
         "children": [
           {
@@ -474,7 +545,7 @@
       {
         "$cmp": "{{NAVLINK}}",
         "props": {
-          "to": "{{__ROUTE_INTERPOLATION}}"
+          "to": "{{common.__vars.ROUTE_INTERPOLATION}}"
         },
         "children": [
           {
@@ -488,7 +559,7 @@
       {
         "$cmp": "{{NAVLINK}}",
         "props": {
-          "to": "{{__ROUTE_RESOLVERS}}"
+          "to": "{{common.__vars.ROUTE_RESOLVERS}}"
         },
         "children": [
           {
@@ -502,7 +573,7 @@
       {
         "$cmp": "{{NAVLINK}}",
         "props": {
-          "to": "{{__ROUTE_RENDERERS}}"
+          "to": "{{common.__vars.ROUTE_RENDERERS}}"
         },
         "children": [
           {
@@ -522,7 +593,7 @@
       {
         "$cmp": "{{NAVLINK}}",
         "props": {
-          "to": "{{__ROUTE_CODE_SPLITTING}}"
+          "to": "{{common.__vars.ROUTE_CODE_SPLITTING}}"
         },
         "children": [
           {
@@ -534,15 +605,31 @@
         ]
       },
       {
-        "$cmp": "{{NAVLISTITEM}}",
+        "$cmp": "{{NAVLINK}}",
+        "props": {
+          "to": "{{common.__vars.ROUTE_MATERIAL_STYLES}}"
+        },
         "children": [
-          "Material UI Styles"
+          {
+            "$cmp": "{{NAVLISTITEM}}",
+            "children": [
+              "Material UI Styles"
+            ]
+          }
         ]
       },
       {
-        "$cmp": "{{NAVLISTITEM}}",
+        "$cmp": "{{NAVLINK}}",
+        "props": {
+          "to": "{{common.__vars.ROUTE_CONDITIONAL}}"
+        },
         "children": [
-          "Conditional"
+          {
+            "$cmp": "{{NAVLISTITEM}}",
+            "children": [
+              "Conditional"
+            ]
+          }
         ]
       },
       {
@@ -552,15 +639,31 @@
         ]
       },
       {
-        "$cmp": "{{NAVLISTITEM}}",
+        "$cmp": "{{NAVLINK}}",
+        "props": {
+          "to": "{{common.__vars.ROUTE_REACTAST}}"
+        },
         "children": [
-          "<ReactAST/>"
+          {
+            "$cmp": "{{NAVLISTITEM}}",
+            "children": [
+              "<ReactAST/>"
+            ]
+          }
         ]
       },
       {
-        "$cmp": "{{NAVLISTITEM}}",
+        "$cmp": "{{NAVLINK}}",
+        "props": {
+          "to": "{{common.__vars.ROUTE_UTILITIES}}"
+        },
         "children": [
-          "Utilities"
+          {
+            "$cmp": "{{NAVLISTITEM}}",
+            "children": [
+              "Utilities"
+            ]
+          }
         ]
       }
     ]

@@ -21,7 +21,8 @@ const DynamicComponent = ({
       const key = path.join('//');
       const next = {
         ...props,
-        render: (props = {}) => innerRender({ key, ...props }),
+        render: (props = {}, ...rest) =>
+          innerRender({ key, ...props }, ...rest),
         key
       };
 

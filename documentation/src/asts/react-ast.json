@@ -1,0 +1,25 @@
+{
+    "MAIN": {
+        "component": "div",
+        "children": [
+            {
+                "$cmp": "{{common.HEADING}}",
+                "children": [
+                    {
+                        "$cmp": {
+                            "component": "pre",
+                            "props": {
+                                "style": {
+                                    "margin": 0
+                                }
+                            },
+                            "children": [
+                                "<ReactAST/>"
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

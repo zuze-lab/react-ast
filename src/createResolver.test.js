@@ -2,13 +2,13 @@ import createResolver from './createResolver';
 
 describe('createResolver', () => {
   it('should resolve', () => {
-    const descriptor = { component: Symbol('a') };
+    const descriptor = { component: 'a' };
     const spy = jest.fn(({ component }) => component);
     expect(createResolver(spy)(descriptor)).toBe(descriptor.component);
   });
 
   it('should cache', () => {
-    const descriptor = { component: Symbol('a') };
+    const descriptor = { component: 'a' };
     const spy = jest.fn(({ component }) => component);
     const resolver = createResolver(spy);
     const a = resolver(descriptor);
@@ -17,7 +17,7 @@ describe('createResolver', () => {
     expect(a).toBe(b);
     expect(b).toBe(c);
     expect(spy).toHaveBeenCalledTimes(1);
-    const d = resolver({ component: Symbol('a') });
+    const d = resolver({ component: 'b' });
     expect(spy).toHaveBeenCalledTimes(2);
     expect(d).not.toBe(a);
   });

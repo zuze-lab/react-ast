@@ -1,9 +1,58 @@
 {
+    "__vars": {
+        "ROUTE_HOME": "/",
+        "ROUTE_INTRODUCTION": "/intro",
+        "ROUTE_GETTING_STARTED": "/getting-started",
+        "ROUTE_INTERPOLATION": "/interpolation",
+        "ROUTE_RESOLVERS": "/resolvers",
+        "ROUTE_RENDERERS": "/renderers",
+        "ROUTE_CODE_SPLITTING": "/guides/code-splitting",
+        "ROUTE_MATERIAL_STYLES": "/guides/material-ui-styles",
+        "ROUTE_CONDITIONAL": "/guides/conditional",
+        "ROUTE_REACTAST": "/api/react-ast",
+        "ROUTE_UTILITIES": "/api/utilities",
+        "ACTIVE_LINK_COLOR": "rgba(0,0,0,0.2)"
+    },
+    "LAZYAST": {
+        "component": "LazyAST"
+    },
+    "CODE": {
+        "component": "Code",
+        "props": {
+            "style": {
+                "padding": 20
+            }
+        }
+    },
+    "PARAGRAPH": {
+        "component": "Typography",
+        "module": "mui",
+        "props": {
+            "variant": "body1"
+        },
+        "styles": {
+            "root": {
+                "paddingBottom": 20
+            }
+        }
+    },
     "HEADING": {
         "component": "Typography",
         "module": "mui",
         "props": {
             "variant": "h4"
+        },
+        "styles": {
+            "root": {
+                "marginBottom": 20
+            }
+        }
+    },
+    "HEADING2": {
+        "component": "Typography",
+        "module": "mui",
+        "props": {
+            "variant": "h5"
         },
         "styles": {
             "root": {

@@ -5,7 +5,7 @@
             {
                 "$cmp": "{{common.HEADING}}",
                 "children": [
-                    "Interpolation"
+                    "Material UI Styles"
                 ]
             }
         ]

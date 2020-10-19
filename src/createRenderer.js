@@ -15,13 +15,13 @@ export default ({
     return render(
       {
         descriptor,
-        render: (innerProps = {}) => {
+        render: (innerProps = {}, modified = descriptor) => {
           const { props, ...final } = parse(
             {
-              ...descriptor,
+              ...modified,
               props: {
-                children: descriptor.children,
-                ...descriptor.props,
+                children: modified.children,
+                ...modified.props,
                 ...innerProps
               }
             },

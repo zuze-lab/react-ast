@@ -1,4 +1,4 @@
-# @zuze/react-ast
+# @zuze/react-ast: For creating highly configurable react applications
 
 
 [![NPM](https://img.shields.io/npm/v/@zuze/react-ast.svg)](https://www.npmjs.com/package/@zuze/react-ast) 
@@ -8,6 +8,8 @@
 [![Bundle Phobia](https://badgen.net/bundlephobia/minzip/@zuze/react-ast)](https://bundlephobia.com/result?p=@zuze/react-ast)
 
 ## Check out the 📕 [official documentation](https://zuze-lab.github.io/react-ast/) 📕
+
+
 
 ## What's this?
 

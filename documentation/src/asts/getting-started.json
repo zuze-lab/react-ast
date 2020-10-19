@@ -1,16 +1,4 @@
 {
-  "CODE": {
-    "component": "Code",
-    "props": {
-      "style": {
-        "padding": 20
-      }
-    }
-  },
-  "FRAGMENT": {
-    "component": "Fragment",
-    "module": "react"
-  },
   "MAIN": {
     "component": "div",
     "styles": {
@@ -22,12 +10,6 @@
       {
         "$cmp": "{{common.SECTION}}",
         "children": {
-          "$cmp": "{{FOREWARD}}"
-        }
-      },
-      {
-        "$cmp": "{{common.SECTION}}",
-        "children": {
           "$cmp": "{{INSTALLATION}}"
         }
       },
@@ -35,30 +17,6 @@
         "$cmp": "{{common.SECTION}}",
         "children": {
           "$cmp": "{{USAGE}}"
-        }
-      }
-    ]
-  },
-  "FOREWARD": {
-    "component": "div",
-    "children": [
-      {
-        "$cmp": "{{common.HEADING}}",
-        "children": [
-          "Foreward"
-        ]
-      },
-      {
-        "$cmp": {
-          "component": "Typography",
-          "module": "mui",
-          "props": {
-            "variant": "body1"
-          },
-          "children": [
-            "The goal of this project is to enable low-code application development. In order to achieve low-code application development, we need an application development framework that is highly configurable by non-technical users. ",
-            "With this in mind, the goal with @zuze/react-ast is to build entire applications using highly reusable components and a sensible syntax from configuration files (we use JSON)."
-          ]
         }
       }
     ]
@@ -146,18 +104,18 @@
     },
     "children": [
       {
-        "$cmp": "{{CODE}}",
+        "$cmp": "{{common.CODE}}",
         "props": {
           "language": "bash"
         },
         "children": "yarn add @zuze/react-ast"
       },
       {
-        "$cmp": "{{CODE}}",
+        "$cmp": "{{common.CODE}}",
         "props": {
           "language": "bash"
         },
-        "children": "npm install @zuze/react-ast"
+        "children": "yarn add @zuze/react-ast"
       }
     ]
   },
@@ -184,7 +142,7 @@
           "react"
         ]
       },
-      " >= 16.6.0 (the one with lazy and memo) is required"
+      " >= 16.6.0 (the one with lazy and memo)."
     ]
   }
 }

@@ -1,5 +1,5 @@
 import { interpolate } from './utils';
-import traverse from './traverse';
+import { traverse, isTraverseable } from './traverse';
 
 const component = (key, merge, creator, descriptor, path) =>
   traverse(
@@ -24,18 +24,25 @@ const component = (key, merge, creator, descriptor, path) =>
     path
   );
 
-const interpolation = (match, context, thing, path) =>
+const interpolation = (match, context, thing, path) => {
+  const log = typeof context !== 'function';
   // if there is no context, don't both traversing
-  context
+  return context
     ? // otherwise traverse and interpolate all strings
       // using the library
       traverse(thing, (v) => {
         if (typeof v !== 'string') return undefined;
         const next = interpolate(v, context, match);
+        log && console.log(thing, v, next);
         if (next === undefined)
           throw new Error(`Failed to interpolate ${v} at ${path.join('//')}`);
-        return next;
+        // recursively interpolate
+        return isTraverseable(next) ||
+          (typeof next === 'string' && next.match(match))
+          ? interpolation(match, context, next, path)
+          : next;
       })
     : thing;
+};
 
 export { interpolation, component };

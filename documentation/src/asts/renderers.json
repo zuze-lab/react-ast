@@ -2,7 +2,12 @@
     "MAIN": {
         "component": "div",
         "children": [
-            "Renderers"
+            {
+                "$cmp": "{{common.HEADING}}",
+                "children": [
+                    "Renderers"
+                ]
+            }
         ]
     }
 }

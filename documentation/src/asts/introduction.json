@@ -1,0 +1,44 @@
+{
+    "MAIN": {
+        "component": "div",
+        "styles": {
+            "root": {
+                "paddingBottom": 50
+            }
+        },
+        "children": [
+            {
+                "$cmp": "{{FOREWARD}}"
+            },
+            {
+                "$cmp": {
+                    "component": "MDX",
+                    "props": {
+                        "source": "introduction"
+                    }
+                }
+            }
+        ]
+    },
+    "FOREWARD": {
+        "component": "div",
+        "children": [
+            {
+                "$cmp": "{{common.SECTION}}",
+                "children": [
+                    {
+                        "$cmp": "{{common.HEADING}}",
+                        "children": "Introduction"
+                    },
+                    {
+                        "$cmp": "{{common.PARAGRAPH}}",
+                        "children": [
+                            "The goal of this project is to enable development of low-code application frameworks. In order to achieve low-code application development, we need application development frameworks that are highly configurable by non-technical users. ",
+                            "With this in mind, the goal with @zuze/react-ast, ultimately, is to build entire applications using highly reusable components and a sensible syntax from configuration files (currently, we use JSON). "
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

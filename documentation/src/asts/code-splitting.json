@@ -2,20 +2,22 @@
     "MAIN": {
         "component": "Fragment",
         "module": "react",
-        "children": {
-            "$cmp": "{{common.SECTION}}",
-            "children": [
-                {
-                    "$cmp": "{{common.HEADING}}",
-                    "children": [
-                        "Code Splitting"
-                    ]
-                },
-                {
-                    "$cmp": "{{INTRO}}"
-                }
-            ]
-        }
+        "children": [
+            {
+                "$cmp": "{{common.SECTION}}",
+                "children": [
+                    {
+                        "$cmp": "{{common.HEADING}}",
+                        "children": [
+                            "Code Splitting"
+                        ]
+                    },
+                    {
+                        "$cmp": "{{INTRO}}"
+                    }
+                ]
+            }
+        ]
     },
     "INTRO": {
         "component": "Typography",
@@ -24,7 +26,7 @@
             {
                 "$cmp": "{{common.HTML}}",
                 "props": {
-                    "content": "This documentation site is crafted almost entirely from component descriptors, using just a couple of helper components.<br>The way it is built is <em><strong>not recommended</strong></em>, but used to illustrate how to build an extremely low code React application. "
+                    "content": "This documentation site is crafted using extreme verbosity and almost entirely from component descriptors, using just a couple of helper components.<br>The way it is built is <em><strong>not recommended</strong></em>, but used to illustrate how to build an extremely low code React application. "
                 }
             },
             {

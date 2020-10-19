@@ -111,7 +111,7 @@
       "style": {
         "textDecoration": "none"
       },
-      "to": "/getting-started"
+      "to": "{{common.__vars.ROUTE_INTRODUCTION}}"
     },
     "children": [
       {

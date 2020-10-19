@@ -10,11 +10,7 @@ The aim of this library is to encourage you to build your own **highly re-usable
 
 ## Files
 
-`main.json` is the entry point, `common.json` contains common component descriptor definitions (for consistent look and feel)
+`main.json` is the entry point, `common.json` contains reusable variables and common component descriptor definitions (for consistent look and feel) that are made available to be interpolated into other files via the tiny [`<LazyAST/>`](../components/LazyAST.js) component.
 
 The rest of the files are simply the routes.
-
-You are encouraged to checkout out how they are parsed and rendered by looking at the tiny [`<LazyAST/>`](../components/LazyAST.js) component.
-
-In short, the `MAIN` component from each file is given the `<ReactAST/>` as the `descriptor` prop and the rest of the file is passed as the `components` prop so they can be used for interpolation. 
 

@@ -2,7 +2,12 @@
     "MAIN": {
         "component": "div",
         "children": [
-            "Resolvers"
+            {
+                "$cmp": "{{common.HEADING}}",
+                "children": [
+                    "Resolvers"
+                ]
+            }
         ]
     }
 }
