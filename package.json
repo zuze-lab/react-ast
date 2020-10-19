@@ -1,6 +1,7 @@
 {
   "name": "@zuze/react-ast",
   "version": "0.1.0",
+  "homepage": "https://zuze-lab.github.io/react-ast",
   "description": "Render React from JSON",
   "author": "akmjenkins",
   "license": "MIT",
@@ -8,15 +9,25 @@
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
+  "sideEffects": false,
+  "keywords": [
+    "react",
+    "json",
+    "dynamic",
+    "tree",
+    "renderer",
+    "create-react-app"
+  ],
   "engines": {
     "node": ">=10"
   },
   "scripts": {
-    "prepublishOnly": "yarn test && yarn build",
+    "prepublishOnly": "yarn test:local && yarn build",
     "build": "microbundle-crl --no-compress --format modern,cjs",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "run-s build",
     "test": "run-s test:unit test:lint test:build",
+    "test:local": "cross-env CI=1 run-s test:lint test:build test:watch",
     "test:build": "run-s build",
     "test:lint": "eslint ./src",
     "test:unit": "cross-env CI=1 react-scripts test --env=jsdom --coverage --coverageReporters=text-lcov | coveralls",

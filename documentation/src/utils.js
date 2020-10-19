@@ -8,7 +8,6 @@ import Tabs from './components/Tabs';
 import WithStyles from './components/WithStyles';
 import { LazyAST } from './components/LazyAST';
 import { Snippet } from './components/Snippet';
-import MyMdx from './components/MyMdx';
 
 const moduleImporter = createImporter(
   async ({ module, component }) =>
@@ -22,7 +21,6 @@ export const resolver = createResolver(
     if (component === 'Code') return Code;
     if (component === 'Tabs') return Tabs;
     if (component === 'Interweave') return Interweave;
-    if (component === 'MDX') return MyMdx;
 
     switch (module) {
       case undefined:
