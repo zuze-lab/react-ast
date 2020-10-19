@@ -118,6 +118,18 @@
       {
         "$cmp": "{{SWITCH_ROUTE}}",
         "props": {
+          "exact": false
+        },
+        "children": [
+          {
+            "$cmp": "{{common.HEADING}}",
+            "children": "Docs coming soon!"
+          }
+        ]
+      },
+      {
+        "$cmp": "{{SWITCH_ROUTE}}",
+        "props": {
           "path": "{{common.__vars.ROUTE_INTRODUCTION}}"
         },
         "children": [

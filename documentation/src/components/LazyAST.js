@@ -17,6 +17,7 @@ export const LazyAST = ({ source, loading = null }) => {
         // reuse of common component definitions using interpolation
         setProps({ root: 'MAIN', components: { ...components, common } });
       } catch (err) {
+        console.log(err);
         if (canceled) return;
         window.alert(
           `An error occurred when trying to retrieve and render ${source}.json`

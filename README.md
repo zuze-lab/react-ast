@@ -9,11 +9,9 @@
 
 ## Check out the 📕 [official documentation](https://zuze-lab.github.io/react-ast/) 📕
 
-
-
 ## What's this?
 
-A pretty straightforward recursive renderer with a tiny amount of syntactic sugar (using `$cmp` and interpolation!)
+A pretty straightforward recursive renderer with a tiny amount of syntactic sugar (using `$cmp` and interpolation!) to compile building block components into complete react applications. Used to develop low-code application frameworks OR to quickly deploy to "hotspots" in existing applications where you need maximum configurability.
 
 ## Why?
 

@@ -12,7 +12,7 @@ export const Snippet = ({ source, loading = 'Loading Snippet', ...rest }) => {
         ).default;
         canceled || setSnippet({ code, imports, live });
       } catch {
-        canceled || window.alert(`Couldn't retrieve ${source}`);
+        canceled || window.alert(`Couldn't retrieve snippet ${source}`);
       }
     })();
     return () => (canceled = true);

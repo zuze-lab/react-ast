@@ -23,19 +23,21 @@ const MyMDX = ({ source, loading = 'Loading Markdown', ...rest }) => {
         canceled ||
           setDoc(
             await (
-              await window.fetch(
-                (await import(`../docs/${source}.mdx`)).default
-              )
+              await window.fetch((await import(`../mdx/${source}.mdx`)).default)
             ).text()
           );
       } catch {
-        canceled || window.alert(`Couldn't retrieve ${source}`);
+        canceled || window.alert(`Couldn't retrieve mdx ${source}`);
       }
     })();
     return () => (canceled = true);
   }, [source]);
 
-  return <Mdx components={components}>{doc}</Mdx>;
+  return (
+    <Mdx components={components} {...rest}>
+      {doc}
+    </Mdx>
+  );
 };
 
 export default MyMDX;

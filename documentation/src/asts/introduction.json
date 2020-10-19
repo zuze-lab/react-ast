@@ -9,14 +9,6 @@
         "children": [
             {
                 "$cmp": "{{FOREWARD}}"
-            },
-            {
-                "$cmp": {
-                    "component": "MDX",
-                    "props": {
-                        "source": "introduction"
-                    }
-                }
             }
         ]
     },
