@@ -1,0 +1,2 @@
+(this["webpackJsonp@zuze/react-ast-example"]=this["webpackJsonp@zuze/react-ast-example"]||[]).push([[13],{709:function(e){e.exports=JSON.parse('{"MAIN":{"component":"div","children":[{"$cmp":"{{common.HEADING}}","children":["Interpolation"]}]}}')}}]);
+//# sourceMappingURL=13.ac8646f6.chunk.js.map
