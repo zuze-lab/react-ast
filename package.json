@@ -32,7 +32,7 @@
     "test:lint": "eslint ./src",
     "test:unit": "cross-env CI=1 react-scripts test --env=jsdom --coverage --coverageReporters=text-lcov | coveralls",
     "test:watch": "react-scripts test --env=jsdom",
-    "predeploy": "cd documentation && yarn install && yarn run build",
+    "predeploy": "cd documentation && yarn install && yarn run build && cp build/index.html build/404.html",
     "deploy": "gh-pages -d documentation/build"
   },
   "peerDependencies": {
